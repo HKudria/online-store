@@ -53,15 +53,15 @@ Inside the project directory, open a terminal.
 
 To run ESLint and see what errors it is pointing, just run:
 
-`npm run eslint`
+`npm run lint`
 
 To automatically fix some errors, you can use ‘--fix’:
 
-`npm esFix`
+`npm run lint:fix`
 
 If you want to ignore warnings, you can use ‘ --quiet’
 
-`npm run esIgnore`
+`npm run format`
 
 To learn more [Install eslint in React Project](https://andrebnassis.medium.com/setting-eslint-on-a-react-typescript-project-2021-1190a43ffba)
 
