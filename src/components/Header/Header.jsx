@@ -9,7 +9,7 @@ export const Header = () => {
         <h1>Online Store</h1>
       </div>
         
-        <p>Card Total:<span>€0</span></p>
+        <p className={s.totalCard}>Card Total:<span>€0</span></p>
         <Basket />
     </header>
   )

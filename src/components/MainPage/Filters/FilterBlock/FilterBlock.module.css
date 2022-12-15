@@ -1,0 +1,12 @@
+.checkboxField {
+  width: 90%;
+  background-color: azure;
+  height: 200px;
+  margin-left: 20px;
+  border-radius: 5px;
+}
+
+.amount {
+  padding-left: 20%;
+}
+
