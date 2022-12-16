@@ -1,0 +1,14 @@
+.filterContent {
+  width: 20%;
+  background-color: #C0C0C0;
+  height: 750px;
+  margin-top: 30px;
+  border-radius: 10px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 15px;
+}
