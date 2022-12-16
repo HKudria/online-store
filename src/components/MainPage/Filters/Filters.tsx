@@ -1,7 +1,7 @@
 import s from './Filters.module.css';
-import { Button } from './Button/Button.tsx';
+import { Button } from './Button/Button';
 import { FilterBlock } from './FilterBlock/FilterBlock';
-import { RangeBlock } from './RangeBlock/RangeBlock.tsx';
+import { RangeBlock } from './RangeBlock/RangeBlock';
 
 
 
