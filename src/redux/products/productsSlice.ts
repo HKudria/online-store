@@ -7,6 +7,11 @@ export interface ProductsState {
   status: 'idle' | 'loading' | 'failed';
 }
 
+interface ISort {
+  type: string
+  action: 'price' | 'rating' | 'discountPercentage'
+}
+
 const initialState: ProductsState = {
   products: [],
   status: 'idle',
@@ -22,8 +27,12 @@ export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    parseAllProducts: (state, action: PayloadAction<IProduct[]>) => {
-      state.products = action.payload;
+    sort(state, action: PayloadAction<ISort>) {
+      if (action.payload.type === 'a'){
+        state.products.sort((a, b) => a[action.payload.action] - b[action.payload.action])
+      } else {
+        state.products.sort((a, b) => b[action.payload.action] - a[action.payload.action])
+      }
     },
   },
   extraReducers: (builder) => {
@@ -41,8 +50,8 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { parseAllProducts } = productsSlice.actions;
+export const { sort } = productsSlice.actions;
 
-export const getProducts = (state: RootState): IProduct[] | [] => state.products.products;
+export const getProductsState = (state: RootState): ProductsState => state.products;
 
 export default productsSlice.reducer;

@@ -40,7 +40,8 @@
             {
                 "allowExpressions": true
             }
-        ]
+        ],
+        "no-debugger": "off"
     },
     "settings": {
         "import/resolver": {

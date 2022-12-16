@@ -2,18 +2,25 @@ import s from './ProductsHeader.module.css';
 import layout1 from '../../../../assets/image/layout_1.png';
 import layout2 from '../../../../assets/image/layout_2.png';
 
-export const ProductsHeader = () => {
+interface IProductHeaderProps{
+    count: number
+    sort: (value: string) => void
+}
+
+
+export const ProductsHeader = (props: IProductHeaderProps) => {
   return (
     <div className={s.headersWrapper}>
-      <select>
-        <option>Sort by price ASC</option>
-        <option>Sort by price DESC</option>
-        <option>Sort by rating ASC</option>
-        <option>Sort by rating DESC</option>
-        <option>Sort by Discount ASC</option>
-        <option>Sort by discount DESC</option>
+      <select onChange={(value)=>props.sort(value.currentTarget.value)}>
+        <option value="0">Select sort options</option>
+        <option value="a.price">Sort by price ASC</option>
+        <option value="d.price">Sort by price DESC</option>
+        <option value="a.rating">Sort by rating ASC</option>
+        <option value="d.rating">Sort by rating DESC</option>
+        <option value="a.discountPercentage">Sort by Discount ASC</option>
+        <option value="d.discountPercentage">Sort by discount DESC</option>
       </select>
-      <p>Found:<span>100</span></p>
+      <p>Found:<span>{props.count}</span></p>
       <form action="" method="get">
         <input name="s" placeholder="Search product" type="search" />
       </form>

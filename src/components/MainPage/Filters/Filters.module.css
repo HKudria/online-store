@@ -4,6 +4,8 @@
   height: 750px;
   margin-top: 30px;
   border-radius: 10px;
+  position: absolute;
+  top:0;
 }
 
 .buttonsWrapper {
