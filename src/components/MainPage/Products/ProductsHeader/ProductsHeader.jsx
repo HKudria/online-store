@@ -15,8 +15,11 @@ export const ProductsHeader = () => {
       <form action="" method="get">
         <input name="s" placeholder="Search product" type="search" />
       </form>
-      <img src="https://cdn-icons-png.flaticon.com/128/3917/3917658.png" alt="icon1"  className={s.icon} />
-      <img src="https://www.flaticon.com/svg/vstatic/svg/3917/3917662.svg?token=exp=1671111085~hmac=ffd75fe385af46d2d271f0959a5a7759" alt="icon2" className={s.icon} />
+      <div>
+        <img src="https://cdn-icons-png.flaticon.com/128/3917/3917658.png" alt="icon1"  className={s.icon} />
+        <img src="https://www.flaticon.com/svg/vstatic/svg/3917/3917618.svg?token=exp=1671183816~hmac=b396c15d21b848830abe28426384c220" alt="icon2" className={s.icon} />
+      </div>
+      
     </div>
   )
 }

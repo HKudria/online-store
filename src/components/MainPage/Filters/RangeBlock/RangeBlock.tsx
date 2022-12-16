@@ -1,5 +1,5 @@
 import s from './RangeBlock.module.css';
-import { RangeSlider } from '../Filters1';
+import { RangeSlider } from '../RangeSlider';
 
 interface IProps {
   title: string;
