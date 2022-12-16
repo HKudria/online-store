@@ -1,10 +1,10 @@
 import s from './FilterBlock.module.css';
 
-interface IProps {
+interface IFilterProps {
   title: string;
 }
 
-export const FilterBlock = (props: IProps) => {
+export const FilterBlock = (props: IFilterProps) => {
   return (
     <div className={s.checkboxField}>
       <h2>{ props.title }</h2>

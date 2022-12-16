@@ -1,10 +1,10 @@
 import s from './Button.module.css';
 
-interface IProps {
+interface IButtonProps {
   name: string;
 }
 
-export const Button = (props: IProps) => {
+export const Button = (props: IButtonProps) => {
   return (
     <button className={s.button}>
       { props.name }

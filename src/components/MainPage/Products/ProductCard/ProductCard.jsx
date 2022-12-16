@@ -1,5 +1,7 @@
 import s from './ProductCard.module.css';
 import { Button } from '../../Filters/Button/Button'
+import iPhone from '../../../../assets/image/iphone.png'
+
 
 export const ProductCard = () => {
   return (
@@ -17,7 +19,7 @@ export const ProductCard = () => {
         <Button name='App to card' />
         <Button name='Details' />
       </div>
-      <img className={s.cardImg} src='./iphone.png' alt='iphone' />
+      <img className={s.cardImg} src={iPhone} alt='iphone' />
     </div>
   )
 }

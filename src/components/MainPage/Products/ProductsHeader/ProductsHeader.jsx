@@ -1,4 +1,6 @@
 import s from './ProductsHeader.module.css';
+import layout1 from '../../../../assets/image/layout_1.png';
+import layout2 from '../../../../assets/image/layout_2.png';
 
 export const ProductsHeader = () => {
   return (
@@ -16,8 +18,8 @@ export const ProductsHeader = () => {
         <input name="s" placeholder="Search product" type="search" />
       </form>
       <div>
-        <img src="./layout_1.png" alt="icon1"  className={s.icon} />
-        <img src="./layout_2.png" alt="icon2" className={s.icon} />
+        <img src={layout1} alt="icon1"  className={s.icon} />
+        <img src={layout2} alt="icon2" className={s.icon} />
       </div>
       
     </div>

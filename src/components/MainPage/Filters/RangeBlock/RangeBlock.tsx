@@ -1,13 +1,13 @@
 import s from './RangeBlock.module.css';
 import { RangeSlider } from '../RangeSlider';
 
-interface IProps {
+interface IRangeProps {
   title: string;
   from: string;
   to: string
 }
 
-export const RangeBlock = (props: IProps) => {
+export const RangeBlock = (props: IRangeProps) => {
   return (
     <div className={s.rangeWrapper}>
       <h2 className={s.title}>{ props.title }</h2>
