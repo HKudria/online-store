@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <header className={s.header}>
       <div className={s.logoWrapper}>
-        <img className={s.logo} alt="logo" src="https://cdn-icons-png.flaticon.com/512/869/869432.png"></img>
+        <img className={s.logo} alt="logo" src="./logo.png"></img>
         <h1>Online Store</h1>
       </div>
         
