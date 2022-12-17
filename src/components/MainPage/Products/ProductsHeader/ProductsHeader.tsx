@@ -7,6 +7,7 @@ interface IProductHeaderProps{
     count: number
     sort: (value: string) => void
     view: (value: string) => void
+    filter: (value: string) => void
 }
 
 export const ProductsHeader = (props: IProductHeaderProps) => {
@@ -22,9 +23,7 @@ export const ProductsHeader = (props: IProductHeaderProps) => {
         <option value="d.discountPercentage">Sort by discount DESC</option>
       </select>
       <p>Found:<span>{props.count}</span></p>
-      <form action="" method="get">
-        <input name="s" placeholder="Search product" type="search" />
-      </form>
+      <input name="s" placeholder="Search product" type="search" onChange={(value)=>props.filter(value.currentTarget.value)} />
       <div>
         <img src={layout1} alt="icon1" className={s.icon} onClick={()=>props.view(ProductsCardSizeEnum.Full)}/>
         <img src={layout2} alt="icon2" className={s.icon} onClick={()=>props.view(ProductsCardSizeEnum.Small)}/>
