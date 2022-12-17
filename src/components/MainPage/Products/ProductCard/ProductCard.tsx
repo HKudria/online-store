@@ -64,7 +64,7 @@ export const ProductCard: React.FC<IProductCardInterface> = (props: IProductCard
                             <li>Stock: {product.stock}</li>
                         </ul>
                         <Typography variant="body2" color="text.secondary">
-                            {product.description.length > 100 ? product.description.substring(0, 100) + '...' : product.description}
+                            {product.description.length > 142 ? product.description.substring(0, 140) + '...' : product.description}
                         </Typography>
                     </CardContent>
                 </CardActionArea>

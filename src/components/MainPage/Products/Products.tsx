@@ -2,14 +2,20 @@ import s from './Products.module.css';
 import {ProductsHeader} from './ProductsHeader/ProductsHeader';
 import {ProductCard} from './ProductCard/ProductCard'
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {getProductsState, parseProducts, sort} from '../../../redux/products/productsSlice';
 import CircularProgress from '@mui/material/CircularProgress';
+import {ProductCardSmall} from './ProductCardSmall/ProductCardSmall';
 
+export enum ProductsCardSizeEnum {
+    Small = 'small',
+    Full = 'full'
+}
 
 export const Products = () => {
     const products = useAppSelector(getProductsState);
     const dispatch = useAppDispatch();
+    const [viewType, setViewType] = useState<string>(ProductsCardSizeEnum.Full);
 
     useEffect(() => {
         dispatch(parseProducts())
@@ -30,12 +36,16 @@ export const Products = () => {
         }
     }
 
-
     return (
         <div className={s.productsWrapper}>
-            <ProductsHeader count={products.products.length} sort={sortProducts}/>
+            <ProductsHeader count={products.products.length} sort={sortProducts} view={setViewType}/>
             <div className={s.cardWrapper}>
-                {products.products.map((product, index) => <ProductCard key={index} product={product}/>)}
+                {products.products.map((product, index) => {
+                    if (viewType === ProductsCardSizeEnum.Full) {
+                        return <ProductCard key={index} product={product}/>
+                    }
+                    return <ProductCardSmall key={index} product={product}/>
+                })}
             </div>
         </div>
     )
