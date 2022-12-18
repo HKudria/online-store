@@ -3,6 +3,7 @@ import s from './FilterBlock.module.css';
 interface IFilterProps {
   title: string;
   data: string[]
+  onChangeFn: (category: string) => void
 }
 
 export const FilterBlock = (props: IFilterProps) => {
@@ -13,8 +14,8 @@ export const FilterBlock = (props: IFilterProps) => {
               <div className={s.filterList}>
                   {props.data.map((element, index) => {
                       return (
-                          <div className={s.filterListItem} key={`cat${index}`}>
-                              <input type="checkbox" id={element}  />
+                          <div className={s.filterListItem} key={`cat${index}${element}`}>
+                              <input type="checkbox" id={element} onChange={(event)=>props.onChangeFn(event.currentTarget.id)}  />
                               <label htmlFor={element}>{element}</label>
                           </div>
                       )
