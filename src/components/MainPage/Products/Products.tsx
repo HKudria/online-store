@@ -1,9 +1,9 @@
 import s from './Products.module.css';
 import {ProductsHeader} from './ProductsHeader/ProductsHeader';
 import {ProductCard} from './ProductCard/ProductCard'
-import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
+import {useAppDispatch} from '../../../redux/hooks';
 import {useEffect, useState} from 'react';
-import {getProductsState, parseProducts, sort} from '../../../redux/products/productsSlice';
+import {sort} from '../../../redux/products/productsSlice';
 import CircularProgress from '@mui/material/CircularProgress';
 import {ProductCardSmall} from './ProductCardSmall/ProductCardSmall';
 import {IProduct} from '../../../redux/products/ProductInterface';
@@ -13,27 +13,27 @@ export enum ProductsCardSizeEnum {
     Full = 'full'
 }
 
-export const Products = () => {
-    const products = useAppSelector(getProductsState);
+interface IProductsProps {
+    products: IProduct[]
+    status: string
+}
+
+export const Products = (props: IProductsProps) => {
     const dispatch = useAppDispatch();
     const [viewType, setViewType] = useState<string>(ProductsCardSizeEnum.Full);
     const [filter, setFilter] = useState<string>('');
-    const [productsStore, setProductsStore] = useState<IProduct[]>(products.products);
-
-    useEffect(() => {
-        dispatch(parseProducts())
-    }, []);
+    const [productsStore, setProductsStore] = useState<IProduct[]>(props.products);
 
     useEffect(() => {
         if (filter !== '') {
-            setProductsStore(products.products.filter((product) => product.description.toLowerCase().includes(filter.toLowerCase()) || product.title.toLowerCase().includes(filter.toLowerCase()))
+            setProductsStore(props.products.filter((product) => product.description.toLowerCase().includes(filter.toLowerCase()) || product.title.toLowerCase().includes(filter.toLowerCase()))
             )
         } else {
-            setProductsStore(products.products)
+            setProductsStore(props.products)
         }
-    }, [filter]);
+    }, [filter, props.products]);
 
-    if (products.status === 'loading') {
+    if (props.status === 'loading') {
         return (
             <div className={`${s.productsWrapper} ${s.spinner}`}>
                 <CircularProgress/>
