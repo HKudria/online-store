@@ -16,7 +16,7 @@ export const MainPage = () => {
 
   return (
     <div className={s.wrapper}>
-      <Filters />
+      <Filters products={products.products}/>
       <Products products={products.products} status={products.status}/>
     </div>
   )

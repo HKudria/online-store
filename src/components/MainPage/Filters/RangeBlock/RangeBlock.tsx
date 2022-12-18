@@ -3,8 +3,8 @@ import { RangeSlider } from '../RangeSlider';
 
 interface IRangeProps {
   title: string;
-  from: string;
-  to: string
+  from: number;
+  to: number;
 }
 
 export const RangeBlock = (props: IRangeProps) => {
@@ -17,7 +17,7 @@ export const RangeBlock = (props: IRangeProps) => {
         <p>{ props.to }</p>
       </div>
       <div className={s.rangeSliderWrapper}>
-        { RangeSlider() }
+        { RangeSlider(props.from, props.to) }
       </div>
       
     </div>
