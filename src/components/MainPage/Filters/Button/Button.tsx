@@ -5,10 +5,10 @@ interface IButtonProps {
   callback?: () => void
 }
 
-export const Button = (props: IButtonProps) => {
+export const Button = ({name, callback}: IButtonProps) => {
   return (
-    <button className={s.button} onClick={props.callback}>
-      { props.name }
+    <button className={s.button} onClick={callback}>
+      { name }
     </button>
   )
 }           

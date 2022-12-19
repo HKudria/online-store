@@ -7,17 +7,17 @@ interface IRangeProps {
   to: number;
 }
 
-export const RangeBlock = (props: IRangeProps) => {
+export const RangeBlock = ({title, from, to}: IRangeProps) => {
   return (
     <div className={s.rangeWrapper}>
-      <h2 className={s.title}>{ props.title }</h2>
+      <h2 className={s.title}>{ title }</h2>
       <div className={s.diapason}>
-        <p>{ props.from }</p>
+        <p>{ from }</p>
         <p>⟷</p>
-        <p>{ props.to }</p>
+        <p>{ to }</p>
       </div>
       <div className={s.rangeSliderWrapper}>
-        { RangeSlider(props.from, props.to) }
+        { RangeSlider(from, to) }
       </div>
       
     </div>

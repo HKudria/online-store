@@ -14,8 +14,7 @@ interface IProductCardInterface {
     product: IProduct
 }
 
-export const ProductCard: React.FC<IProductCardInterface> = (props: IProductCardInterface) => {
-    const {product} = props
+export const ProductCard: React.FC<IProductCardInterface> = ({product}: IProductCardInterface) => {
     return (
         <>
             <Card sx={{maxWidth: 345, width: '100%', height: 460}}>

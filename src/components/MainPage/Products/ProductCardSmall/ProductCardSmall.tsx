@@ -13,8 +13,7 @@ interface IProductCardSmallInterface {
     product: IProduct
 }
 
-export const ProductCardSmall: React.FC<IProductCardSmallInterface> = (props: IProductCardSmallInterface) => {
-    const {product} = props
+export const ProductCardSmall: React.FC<IProductCardSmallInterface> = ({product}: IProductCardSmallInterface) => {
     return (
         <>
             <Card sx={{ display: 'flex',height:150, width: 400}}>

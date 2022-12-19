@@ -17,10 +17,10 @@ const initialState: ProductsState = {
     status: 'idle',
 };
 
-export const parseProducts = createAsyncThunk('products/fetchProducts', async () => {
-    return await fetch('https://dummyjson.com/products?limit=100')
-        .then(async response => await response.json())
-        .then(response => response.products)
+export const parseProducts = createAsyncThunk('products/fetchProducts',  async () => {
+    const response = await fetch('https://dummyjson.com/products?limit=100')
+    const data = await response.json()
+    return data.products
 });
 
 export const productsSlice = createSlice({
@@ -28,9 +28,9 @@ export const productsSlice = createSlice({
     initialState,
     reducers: {
         sort(state, action: PayloadAction<ISort>) {
-            if (action.payload.type === 'a') {
+            if (action.payload.type === 'asc') {
                 state.products.sort((a, b) => a[action.payload.action] - b[action.payload.action])
-            } else {
+            } else if (action.payload.type === 'desc'){
                 state.products.sort((a, b) => b[action.payload.action] - a[action.payload.action])
             }
         },

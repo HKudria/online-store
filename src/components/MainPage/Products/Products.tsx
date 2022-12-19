@@ -18,22 +18,22 @@ interface IProductsProps {
     status: string
 }
 
-export const Products = (props: IProductsProps) => {
+export const Products = ({products, status}: IProductsProps) => {
     const dispatch = useAppDispatch();
     const [viewType, setViewType] = useState<string>(ProductsCardSizeEnum.Full);
     const [filter, setFilter] = useState<string>('');
-    const [productsStore, setProductsStore] = useState<IProduct[]>(props.products);
+    const [productsStore, setProductsStore] = useState<IProduct[]>(products);
 
     useEffect(() => {
         if (filter !== '') {
-            setProductsStore(props.products.filter((product) => product.description.toLowerCase().includes(filter.toLowerCase()) || product.title.toLowerCase().includes(filter.toLowerCase()))
+            setProductsStore(products.filter((product) => product.description.toLowerCase().includes(filter.toLowerCase()) || product.title.toLowerCase().includes(filter.toLowerCase()))
             )
         } else {
-            setProductsStore(props.products)
+            setProductsStore(products)
         }
-    }, [filter, props.products]);
+    }, [filter, products]);
 
-    if (props.status === 'loading') {
+    if (status === 'loading') {
         return (
             <div className={`${s.productsWrapper} ${s.spinner}`}>
                 <CircularProgress/>
