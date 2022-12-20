@@ -10,10 +10,12 @@ interface IFiltersInterface {
     selectedCategories: string[]
     onChangeCategory: (category: string) => void
     onChangeBrands: (category: string) => void
+    onChangePrice: (number: number[]) => void
+    onChangeStock: (number: number[]) => void
     resetFilter: () => void
 }
 
-export const Filters = ({products, selectedCategories, onChangeCategory, onChangeBrands, resetFilter}: IFiltersInterface) => {
+export const Filters = ({products, selectedCategories, onChangeCategory, onChangeBrands, onChangePrice, onChangeStock, resetFilter}: IFiltersInterface) => {
     const [categories, setCategories] = useState<Set<string>>(new Set());
     const [brands, setBrands] = useState<Set<string>>(new Set());
     const [priceMin, setPriceMin] = useState<number>(0)
@@ -42,6 +44,7 @@ export const Filters = ({products, selectedCategories, onChangeCategory, onChang
         })
     }, [products, selectedCategories]);
 
+
     return (
         <div className={s.filterContent}>
             <div className={s.buttonsWrapper}>
@@ -51,8 +54,8 @@ export const Filters = ({products, selectedCategories, onChangeCategory, onChang
             <div className={s.filtersWrapper}>
                 <FilterBlock title="Category" data={Array.from(categories)} onChangeFn={onChangeCategory} />
                 <FilterBlock title="Brand" data={Array.from(brands)} onChangeFn={onChangeBrands}/>
-                <RangeBlock title="Price" from={priceMin} to={priceMax}/>
-                <RangeBlock title="Stock" from={stockMin} to={stockMax}/>
+                <RangeBlock title="Price" from={priceMin} to={priceMax} onChange={onChangePrice}/>
+                <RangeBlock title="Stock" from={stockMin} to={stockMax} onChange={onChangeStock}/>
             </div>
         </div>
     )

@@ -10,6 +10,8 @@ export const MainPage = () => {
     const dispatch = useAppDispatch();
     const [categories, setCategories] = useState<string[]>([]);
     const [brands, setBrands] = useState<string[]>([]);
+    const [price, setPrice] = useState<number[]>([]);
+    const [stock, setStock] = useState<number[]>([]);
 
     useEffect(() => {
         dispatch(parseProducts())
@@ -20,9 +22,11 @@ export const MainPage = () => {
           {
               categories,
               brands,
+              price,
+              stock,
           }
       ))
-    }, [brands,categories, products.products]);
+    }, [brands,categories, price, stock]);
 
     const onChangeCategory = (category: string) => {
         if(!categories.includes(category)){
@@ -45,6 +49,8 @@ export const MainPage = () => {
     const resetFilters = () => {
         setCategories([])
         setBrands([])
+        setPrice([])
+        setStock([])
     }
 
   return (
@@ -53,6 +59,8 @@ export const MainPage = () => {
                selectedCategories={categories}
                onChangeCategory={onChangeCategory}
                onChangeBrands={onChangeBrands}
+               onChangePrice={setPrice}
+               onChangeStock={setStock}
                resetFilter={resetFilters}/>
       <Products products={products.filteredProduct} status={products.status}/>
     </div>

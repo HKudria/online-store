@@ -17,8 +17,8 @@ interface ISort {
 interface IFilter {
     categories: string[];
     brands: string[];
-    // price: number[];
-    // stock: number[];
+    price: number[];
+    stock: number[];
 }
 
 const initialState: ProductsState = {
@@ -34,7 +34,7 @@ export const parseProducts = createAsyncThunk('products/fetchProducts',  async (
     return data.products
 });
 
-const findByCategory = (store: IProduct[], categories: string[]) => {
+const filterByCategory = (store: IProduct[], categories: string[]) => {
     let tmpArray:IProduct[] = []
     categories.forEach(category => {
         const filteredArray = store.filter((product) => product.category === category)
@@ -43,7 +43,15 @@ const findByCategory = (store: IProduct[], categories: string[]) => {
     return tmpArray
 }
 
-const findByBrand = (store: IProduct[], brands: string[]) => {
+const filterByStock = (store: IProduct[], stock: number[]) => {
+    return store.filter((product) => product.stock > stock[0] && product.stock < stock[1])
+}
+
+const filterByPrice = (store: IProduct[], price: number[]) => {
+    return store.filter((product) => product.price > price[0] && product.price < price[1])
+}
+
+const filterByBrand = (store: IProduct[], brands: string[]) => {
     let tmpArray: IProduct[] = []
     brands.forEach(brand => {
         const filteredArray = store.filter((product) => product.brand === brand)
@@ -69,12 +77,16 @@ export const productsSlice = createSlice({
         filterProduct(state, action: PayloadAction<IFilter>){
             state.isFilter = true;
             if (action.payload.categories.length !== 0 && action.payload.brands.length !== 0) {
-                state.filteredProduct = findByBrand(findByCategory(state.products, action.payload.categories), action.payload.brands)
+                state.filteredProduct = filterByBrand(filterByCategory(state.products, action.payload.categories), action.payload.brands)
             } else if (action.payload.categories.length !== 0) {
-                state.filteredProduct = findByCategory(state.products, action.payload.categories)
+                state.filteredProduct = filterByCategory(state.products, action.payload.categories)
             } else if (action.payload.brands.length !== 0) {
-                state.filteredProduct = findByBrand(state.products, action.payload.brands)
-            } else {
+                state.filteredProduct = filterByBrand(state.products, action.payload.brands)
+            } else if (action.payload.price.length !== 0) {
+                state.filteredProduct = filterByPrice(state.products, action.payload.price)
+            } else if (action.payload.stock.length !== 0) {
+                state.filteredProduct = filterByStock(state.products, action.payload.stock)
+            }else {
                 state.filteredProduct = state.products
                 state.isFilter = false;
             }

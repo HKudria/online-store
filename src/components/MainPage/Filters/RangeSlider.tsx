@@ -6,7 +6,7 @@ function valuetext(value: number) {
   return `${value}`;
 }
 
-export function RangeSlider(min: number, max: number) {
+export function RangeSlider(min: number, max: number, onChange: (number: number[])=>void) {
   const [value, setValue] = useState<number[]>([min, max]);
 
     useEffect(() => {
@@ -16,6 +16,7 @@ export function RangeSlider(min: number, max: number) {
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
+    onChange(newValue as number[])
   };
 
   return (
