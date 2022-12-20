@@ -4,17 +4,28 @@ import {IProduct} from './ProductInterface';
 
 export interface ProductsState {
     products: IProduct[] | [];
+    filteredProduct: IProduct[] | [];
     status: 'idle' | 'loading' | 'failed';
+    isFilter: boolean;
 }
 
 interface ISort {
-    type: string
-    action: 'price' | 'rating' | 'discountPercentage'
+    type: string;
+    action: 'price' | 'rating' | 'discountPercentage';
+}
+
+interface IFilter {
+    categories: string[];
+    brands: string[];
+    // price: number[];
+    // stock: number[];
 }
 
 const initialState: ProductsState = {
     products: [],
+    filteredProduct: [],
     status: 'idle',
+    isFilter: false,
 };
 
 export const parseProducts = createAsyncThunk('products/fetchProducts',  async () => {
@@ -23,17 +34,51 @@ export const parseProducts = createAsyncThunk('products/fetchProducts',  async (
     return data.products
 });
 
+const findByCategory = (store: IProduct[], categories: string[]) => {
+    let tmpArray:IProduct[] = []
+    categories.forEach(category => {
+        const filteredArray = store.filter((product) => product.category === category)
+        tmpArray = tmpArray.concat(filteredArray)
+    })
+    return tmpArray
+}
+
+const findByBrand = (store: IProduct[], brands: string[]) => {
+    let tmpArray: IProduct[] = []
+    brands.forEach(brand => {
+        const filteredArray = store.filter((product) => product.brand === brand)
+        tmpArray = tmpArray.concat(filteredArray)
+    })
+    return tmpArray
+}
+
 export const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
         sort(state, action: PayloadAction<ISort>) {
             if (action.payload.type === 'asc') {
-                state.products.sort((a, b) => a[action.payload.action] - b[action.payload.action])
+                state.filteredProduct.sort((a, b) => a[action.payload.action] - b[action.payload.action])
             } else if (action.payload.type === 'desc'){
-                state.products.sort((a, b) => b[action.payload.action] - a[action.payload.action])
+                state.filteredProduct.sort((a, b) => b[action.payload.action] - a[action.payload.action])
             }
         },
+        findProduct(state, action: PayloadAction<string>){
+            state.filteredProduct = state.products.filter((product) => product.description.toLowerCase().includes(action.payload.toLowerCase()) || product.title.toLowerCase().includes(action.payload.toLowerCase()))
+        },
+        filterProduct(state, action: PayloadAction<IFilter>){
+            state.isFilter = true;
+            if (action.payload.categories.length !== 0 && action.payload.brands.length !== 0) {
+                state.filteredProduct = findByBrand(findByCategory(state.products, action.payload.categories), action.payload.brands)
+            } else if (action.payload.categories.length !== 0) {
+                state.filteredProduct = findByCategory(state.products, action.payload.categories)
+            } else if (action.payload.brands.length !== 0) {
+                state.filteredProduct = findByBrand(state.products, action.payload.brands)
+            } else {
+                state.filteredProduct = state.products
+                state.isFilter = false;
+            }
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -43,6 +88,7 @@ export const productsSlice = createSlice({
             .addCase(parseProducts.fulfilled, (state, action) => {
                 state.status = 'idle';
                 state.products = action.payload;
+                state.filteredProduct = action.payload
             })
             .addCase(parseProducts.rejected, (state) => {
                 state.status = 'failed';
@@ -50,7 +96,7 @@ export const productsSlice = createSlice({
     },
 });
 
-export const {sort} = productsSlice.actions;
+export const {sort, findProduct, filterProduct} = productsSlice.actions;
 
 export const getProductsState = (state: RootState): ProductsState => state.products;
 

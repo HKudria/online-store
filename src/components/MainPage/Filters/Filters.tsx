@@ -49,7 +49,7 @@ export const Filters = ({products, selectedCategories, onChangeCategory, onChang
                 <Button name="Copy Link"/>
             </div>
             <div className={s.filtersWrapper}>
-                <FilterBlock title="Category" data={Array.from(categories)} onChangeFn={onChangeCategory}/>
+                <FilterBlock title="Category" data={Array.from(categories)} onChangeFn={onChangeCategory} />
                 <FilterBlock title="Brand" data={Array.from(brands)} onChangeFn={onChangeBrands}/>
                 <RangeBlock title="Price" from={priceMin} to={priceMax}/>
                 <RangeBlock title="Stock" from={stockMin} to={stockMax}/>
