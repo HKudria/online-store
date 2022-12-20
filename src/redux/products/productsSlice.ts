@@ -7,6 +7,12 @@ export interface ProductsState {
     filteredProduct: IProduct[] | [];
     status: 'idle' | 'loading' | 'failed';
     isFilter: boolean;
+    initMaxPrice: number;
+    initMaxStock: number;
+    minPrice: number;
+    maxPrice: number;
+    minStock: number;
+    maxStock: number;
 }
 
 interface ISort {
@@ -26,29 +32,35 @@ const initialState: ProductsState = {
     filteredProduct: [],
     status: 'idle',
     isFilter: false,
+    initMaxPrice: 0,
+    initMaxStock: 0,
+    minPrice: 0,
+    maxPrice: 0,
+    minStock: 0,
+    maxStock: 0,
 };
 
-export const parseProducts = createAsyncThunk('products/fetchProducts',  async () => {
+export const parseProducts = createAsyncThunk('products/fetchProducts', async () => {
     const response = await fetch('https://dummyjson.com/products?limit=100')
     const data = await response.json()
     return data.products
 });
 
 const filterByCategory = (store: IProduct[], categories: string[]) => {
-    let tmpArray:IProduct[] = []
+    let tmpArray: IProduct[] = []
     categories.forEach(category => {
         const filteredArray = store.filter((product) => product.category === category)
         tmpArray = tmpArray.concat(filteredArray)
     })
-    return tmpArray
+    return categories.length !== 0 ? tmpArray : store
 }
 
 const filterByStock = (store: IProduct[], stock: number[]) => {
-    return store.filter((product) => product.stock > stock[0] && product.stock < stock[1])
+    return stock.length !== 0 ? store.filter((product) => product.stock > stock[0] && product.stock < stock[1]) : store
 }
 
 const filterByPrice = (store: IProduct[], price: number[]) => {
-    return store.filter((product) => product.price > price[0] && product.price < price[1])
+    return price.length !== 0 ? store.filter((product) => product.price > price[0] && product.price < price[1]) : store
 }
 
 const filterByBrand = (store: IProduct[], brands: string[]) => {
@@ -57,7 +69,17 @@ const filterByBrand = (store: IProduct[], brands: string[]) => {
         const filteredArray = store.filter((product) => product.brand === brand)
         tmpArray = tmpArray.concat(filteredArray)
     })
-    return tmpArray
+    return brands.length !== 0 ? tmpArray : store
+}
+
+const findMinMax = (store: IProduct[]) => {
+    let tmp = store.map(el => el.price)
+    const minPrice = Math.min(...tmp)
+    const maxPrice = Math.max(...tmp)
+    tmp = store.map(el => el.stock)
+    const minStock = Math.min(...tmp)
+    const maxStock = Math.max(...tmp)
+    return {minPrice, maxPrice, minStock, maxStock}
 }
 
 export const productsSlice = createSlice({
@@ -67,29 +89,35 @@ export const productsSlice = createSlice({
         sort(state, action: PayloadAction<ISort>) {
             if (action.payload.type === 'asc') {
                 state.filteredProduct.sort((a, b) => a[action.payload.action] - b[action.payload.action])
-            } else if (action.payload.type === 'desc'){
+            } else if (action.payload.type === 'desc') {
                 state.filteredProduct.sort((a, b) => b[action.payload.action] - a[action.payload.action])
             }
         },
-        findProduct(state, action: PayloadAction<string>){
+        findProduct(state, action: PayloadAction<string>) {
             state.filteredProduct = state.products.filter((product) => product.description.toLowerCase().includes(action.payload.toLowerCase()) || product.title.toLowerCase().includes(action.payload.toLowerCase()))
+            const minMax = findMinMax(state.filteredProduct)
+            state.minPrice = minMax.minPrice
+            state.maxPrice = minMax.maxPrice
+            state.minStock = minMax.minStock
+            state.maxStock = minMax.maxStock
         },
-        filterProduct(state, action: PayloadAction<IFilter>){
+        filterProduct(state, action: PayloadAction<IFilter>) {
             state.isFilter = true;
-            if (action.payload.categories.length !== 0 && action.payload.brands.length !== 0) {
-                state.filteredProduct = filterByBrand(filterByCategory(state.products, action.payload.categories), action.payload.brands)
-            } else if (action.payload.categories.length !== 0) {
-                state.filteredProduct = filterByCategory(state.products, action.payload.categories)
-            } else if (action.payload.brands.length !== 0) {
-                state.filteredProduct = filterByBrand(state.products, action.payload.brands)
-            } else if (action.payload.price.length !== 0) {
-                state.filteredProduct = filterByPrice(state.products, action.payload.price)
-            } else if (action.payload.stock.length !== 0) {
-                state.filteredProduct = filterByStock(state.products, action.payload.stock)
-            }else {
+            if (action.payload.categories.length !== 0 || action.payload.brands.length !== 0 || action.payload.price.length !== 0 || action.payload.stock.length !== 0) {
+                state.filteredProduct = filterByStock(filterByPrice(filterByBrand(filterByCategory(state.products, action.payload.categories), action.payload.brands), action.payload.price), action.payload.stock)
+            } else {
                 state.filteredProduct = state.products
                 state.isFilter = false;
             }
+            let minMax = findMinMax(state.products)
+            if (state.isFilter) {
+                minMax = findMinMax(state.filteredProduct)
+
+            }
+            state.minPrice = minMax.minPrice
+            state.maxPrice = minMax.maxPrice
+            state.minStock = minMax.minStock
+            state.maxStock = minMax.maxStock
         }
     },
     extraReducers: (builder) => {
@@ -101,6 +129,11 @@ export const productsSlice = createSlice({
                 state.status = 'idle';
                 state.products = action.payload;
                 state.filteredProduct = action.payload
+                const minMax = findMinMax(state.filteredProduct)
+                state.minPrice = minMax.minPrice
+                state.maxPrice = state.initMaxPrice = minMax.maxPrice
+                state.minStock = minMax.minStock
+                state.maxStock = state.initMaxStock = minMax.maxStock
             })
             .addCase(parseProducts.rejected, (state) => {
                 state.status = 'failed';

@@ -6,7 +6,7 @@ function valuetext(value: number) {
   return `${value}`;
 }
 
-export function RangeSlider(min: number, max: number, onChange: (number: number[])=>void) {
+export function RangeSlider(min: number, max: number, onChange: (number: number[])=>void, initMax: number) {
   const [value, setValue] = useState<number[]>([min, max]);
 
     useEffect(() => {
@@ -27,8 +27,8 @@ export function RangeSlider(min: number, max: number, onChange: (number: number[
         onChange={handleChange}
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
-        min={min}
-        max={max}
+        min={0}
+        max={initMax}
       />
     </Box>
   );

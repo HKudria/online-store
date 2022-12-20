@@ -6,19 +6,20 @@ interface IRangeProps {
   from: number;
   to: number;
   onChange: (number: number[])=>void;
+  initMax: number;
 }
 
-export const RangeBlock = ({title, from, to, onChange}: IRangeProps) => {
+export const RangeBlock = ({title, from, to, onChange, initMax}: IRangeProps) => {
   return (
     <div className={s.rangeWrapper}>
       <h2 className={s.title}>{ title }</h2>
       <div className={s.diapason}>
-        <p>{ from }</p>
+        <p>{from}</p>
         <p>⟷</p>
-        <p>{ to }</p>
+        <p>{to}</p>
       </div>
       <div className={s.rangeSliderWrapper}>
-        { RangeSlider(from, to, onChange) }
+        { RangeSlider(from, to, onChange, initMax) }
       </div>
       
     </div>
