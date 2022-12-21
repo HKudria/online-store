@@ -2,13 +2,13 @@ import s from './Button.module.css';
 
 interface IButtonProps {
   name: string;
-  callback?: () => void
+  callback?: () => void;
 }
 
-export const Button = ({name, callback}: IButtonProps) => {
+export const Button = ({ name, callback }: IButtonProps) => {
   return (
     <button className={s.button} onClick={callback}>
-      { name }
+      {name}
     </button>
-  )
-}           
+  );
+};
