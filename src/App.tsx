@@ -2,6 +2,7 @@ import './App.css';
 import { Header } from './components/Header/Header';
 import { MainPage } from './components/MainPage/MainPage';
 import { Footer } from './components/Footer/Footer';
+import { Form } from './components/FormForPurchase/Form';
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <Header />
       <MainPage />
       <Footer />
+      <Form />
     </div>
     
   )
