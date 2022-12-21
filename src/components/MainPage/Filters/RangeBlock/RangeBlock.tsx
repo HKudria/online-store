@@ -14,9 +14,9 @@ export const RangeBlock = ({title, from, to, onChange, initMax}: IRangeProps) =>
     <div className={s.rangeWrapper}>
       <h2 className={s.title}>{ title }</h2>
       <div className={s.diapason}>
-        <p>{from}</p>
+        <p>0 | {from}</p>
         <p>⟷</p>
-        <p>{to}</p>
+        <p>{to} | {initMax}</p>
       </div>
       <div className={s.rangeSliderWrapper}>
         { RangeSlider(from, to, onChange, initMax) }

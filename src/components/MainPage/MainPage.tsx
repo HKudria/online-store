@@ -51,23 +51,20 @@ export const MainPage = () => {
         setBrands([])
         setPrice([])
         setStock([])
+        document.querySelectorAll('input[type=checkbox]').forEach( (el) => {
+            (el as HTMLInputElement).checked = false
+        });
     }
 
     return (
         <div className={s.wrapper}>
-            <Filters products={products.products}
+            <Filters store={products}
                      selectedCategories={categories}
                      onChangeCategory={onChangeCategory}
                      onChangeBrands={onChangeBrands}
                      onChangePrice={setPrice}
                      onChangeStock={setStock}
-                     resetFilter={resetFilters}
-                     minPrice={products.minPrice}
-                     maxPrice={products.maxPrice}
-                     initMaxPrice={products.initMaxPrice}
-                     minStock={products.minStock}
-                     maxStock={products.maxStock}
-                     initMaxStock={products.initMaxStock}/>
+                     resetFilter={resetFilters} />
             <Products products={products.filteredProduct} status={products.status}/>
         </div>
     )
