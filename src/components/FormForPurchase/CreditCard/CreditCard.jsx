@@ -10,17 +10,44 @@ export default class PaymentForm extends React.Component {
     focus: '',
     name: '',
     number: '',
+    value: '',
   };
 
   handleInputFocus = (e) => {
     this.setState({ focus: e.target.name });
-    
   }
   
-  handleInputChange = (e) => {
+  handleInputChangeCardNumber = (e) => {
     const { name, value } = e.target;
     
     this.setState({ [name]: value });
+
+    e.target.value = e.target.value.replace(/\D/g,'');
+  }
+
+  handleInputChangeExpiry = (e) => {
+    const { name, value } = e.target;
+    const month = e.target.value[0] + e.target.value[1];
+    const day = e.target.value[2] + e.target.value[3];
+    
+    this.setState({ [name]: value });
+
+    e.target.value = e.target.value.replace(/\D/g,'');
+
+    if (+month > 12) {
+      e.target.value = e.target.value.replace(month,'');
+    }
+    if (+day > 31) {
+      e.target.value = e.target.value.replace(day,'');
+    }
+  }
+
+  handleInputChangeCVC = (e) => {
+    const { name, value } = e.target;
+    
+    this.setState({ [name]: value });
+
+    e.target.value = e.target.value.replace(/\D/g,'');
   }
   
   render() {
@@ -36,28 +63,31 @@ export default class PaymentForm extends React.Component {
         <form className={s.paymentFormWrapper}>
           <input 
             className={s.inputField}
-            type="tel"
+            type="text"
+            maxLength={16}
             name="number"
             placeholder="Card Number"
-            onChange={this.handleInputChange}
+            onChange={this.handleInputChangeCardNumber}
             onFocus={this.handleInputFocus}
           />
 
           <input
             className={s.inputField}
-            type="tel"
+            type="text"
             name="expiry"
             placeholder="Expiry"
-            onChange={this.handleInputChange}
+            maxLength={4}
+            onChange={this.handleInputChangeExpiry}
             onFocus={this.handleInputFocus}
           />
 
           <input
             className={s.inputField}
-            type="tel"
+            type="text"
             name="cvc"
             placeholder="cvc"
-            onChange={this.handleInputChange}
+            maxLength={3}
+            onChange={this.handleInputChangeCVC}
             onFocus={this.handleInputFocus}
           />
         </form>

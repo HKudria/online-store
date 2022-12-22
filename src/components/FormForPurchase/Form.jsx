@@ -15,10 +15,10 @@ export const Form = () => {
   const [phoneDirty, setPhoneDirty] = useState(false);
   const [addressDirty, setAddressDirty] = useState(false);
 
-  const [emailError, setEmailError] = useState('Емейл не может быть пустым');
-  const [nameError, setNameError] = useState('Имя и фамилия не может быть пустым');
-  const [phoneError, setPhoneError] = useState('Номер телефона не может быть пустым');
-  const [addressError, setAddressError] = useState('Адрес не может быть пустым');
+  const [emailError, setEmailError] = useState('Email cannot be empty');
+  const [nameError, setNameError] = useState('Name cannot be empty');
+  const [phoneError, setPhoneError] = useState('Phone number cannot be empty');
+  const [addressError, setAddressError] = useState('Address cannot be empty');
 
   
 
@@ -38,12 +38,12 @@ export const Form = () => {
     const arrayOfNameAndSurname = nameAndSurname.split(' ');
     if (arrayOfNameAndSurname.length >= 2) {
       if (arrayOfNameAndSurname.some(item => item.length < 3)) {
-        setNameError('Неправильно введено имя и фамилия');
+        setNameError('Incorrect name and surname');
       } else {
         setNameError('');
       }
     } else {
-      setNameError('Неправильно введено имя и фамилия');
+      setNameError('Incorrect name and surname');
     }
   } 
 
@@ -51,7 +51,7 @@ const emailHandler = (e) => {
   setEmail(e.target.value);
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   if (!re.test(String(e.target.value).toLowerCase())) {
-    setEmailError('Некорректный емейл');
+    setEmailError('Incorrect email');
   } else {
     setEmailError('');
   }
@@ -63,13 +63,13 @@ const phoneHandler = (e) => {
   if (phoneNumber[0] === '+' && phoneNumber.length > 9) {
     for (let i = 1; i < phoneNumber.length; i++) {
       if (phoneNumber[i].charCodeAt(0) < 48 || phoneNumber[i].charCodeAt(0) > 57) {
-        setPhoneError('Неправильно заполнен номер телефона');
+        setPhoneError('Incorrect phone number');
       } else {
         setPhoneError('');
       }
     }
   } else {
-    setPhoneError('Неправильно заполнен номер телефона');
+    setPhoneError('Incorrect phone number');
   }
 }
 
@@ -79,12 +79,12 @@ const addressHandler = (e) => {
   const addressArray = addressStr.split(' ');
   if (addressArray.length >= 3) {
     if (addressArray.some(item => item.length < 5)) {
-      setAddressError('Неправильно заполнен адрес');
+      setAddressError('Incorrect address');
     } else {
       setAddressError('');
     }
 } else {
-  setAddressError('Неправильно заполнен адрес');
+  setAddressError('Incorrect address');
 }
 }
   
@@ -148,7 +148,7 @@ const addressHandler = (e) => {
       <h2 className={s.title}>Credit card details</h2>
       <PaymentForm />
 
-      <button className={s.bntSubmit} disabled={!formValid} type='submit'>submit</button>
+      <button className={s.bntSubmit} disabled={!formValid} type='submit'>Confirm</button>
     </form>
     </div>
     
