@@ -1,71 +1,91 @@
 import s from './Form.module.css';
 import { useState, useEffect } from 'react';
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+import PaymentForm from './CreditCard/CreditCard';
+
+
 
 export const Form = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState()
+  const [address, setAddress] = useState()
 
-  const [passwordDirty, setPasswordDirty] = useState(false);
   const [emailDirty, setEmailDirty] = useState(false);
   const [nameDirty, setNameDirty] = useState(false);
+  const [phoneDirty, setPhoneDirty] = useState(false);
+  const [addressDirty, setAddressDirty] = useState(false);
 
   const [emailError, setEmailError] = useState('Емейл не может быть пустым');
-  const [passwordError, setPasswordError] = useState('Пароль не может быть пустым');
   const [nameError, setNameError] = useState('Имя и фамилия не может быть пустым');
+  const [phoneError, setPhoneError] = useState('Номер телефона не может быть пустым');
+  const [addressError, setAddressError] = useState('Адрес не может быть пустым');
 
   
 
   const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
-    if (emailError || passwordError) {
+    if (nameError || emailError || phoneError || addressError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
-  }, [emailError, passwordError]);
+  }, [nameError, emailError, phoneError, addressError]);
 
-  const emailHandler = (e) => {
-    setEmail(e.target.value);
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    if (!re.test(String(e.target.value).toLowerCase())) {
-      setEmailError('Некорректный емейл');
-    } else {
-      setEmailError('');
-    }
-};
-
-const passwordHandler = (e) => {
-  setPassword(e.target.value);
-  if (e.target.value.length < 3 || e.target.value.length > 8 ) {
-    setPasswordError('Пароль должен быть длиннее 3 и меньше 8');
-  } else if (!e.target.value) {
-    setPasswordError('Пароль не может быть пустым');
-  } else {
-    setPasswordError('');
-  }
-}
-
-const nameHandler = (e) => {
-  setName(e.target.value);
-  const nameAndSurname = e.target.value;
-  const arrayOfNameAndSurname = nameAndSurname.split(' ');
-  console.log(arrayOfNameAndSurname);
-  if (arrayOfNameAndSurname.length < 2) {
-    setNameError('Введите полное имя и фамилию');
-  } else {
-    for (let i = 0; i < arrayOfNameAndSurname.length; i++) {
-      if (arrayOfNameAndSurname[i].length < 3) {
-        setNameError('Введите полное имя и фамилию');
+  const nameHandler = (e) => {
+    setName(e.target.value);
+    const nameAndSurname = e.target.value;
+    const arrayOfNameAndSurname = nameAndSurname.split(' ');
+    if (arrayOfNameAndSurname.length >= 2) {
+      if (arrayOfNameAndSurname.some(item => item.length < 3)) {
+        setNameError('Неправильно введено имя и фамилия');
       } else {
         setNameError('');
       }
-    } 
+    } else {
+      setNameError('Неправильно введено имя и фамилия');
+    }
   } 
+
+const emailHandler = (e) => {
+  setEmail(e.target.value);
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  if (!re.test(String(e.target.value).toLowerCase())) {
+    setEmailError('Некорректный емейл');
+  } else {
+    setEmailError('');
+  }
+};
+
+const phoneHandler = (e) => {
+  setPhone(e.target.value);
+  const phoneNumber = e.target.value;
+  if (phoneNumber[0] === '+' && phoneNumber.length > 9) {
+    for (let i = 1; i < phoneNumber.length; i++) {
+      if (phoneNumber[i].charCodeAt(0) < 48 || phoneNumber[i].charCodeAt(0) > 57) {
+        setPhoneError('Неправильно заполнен номер телефона');
+      } else {
+        setPhoneError('');
+      }
+    }
+  } else {
+    setPhoneError('Неправильно заполнен номер телефона');
+  }
+}
+
+const addressHandler = (e) => {
+  setAddress(e.target.value);
+  const addressStr = e.target.value;
+  const addressArray = addressStr.split(' ');
+  if (addressArray.length >= 3) {
+    if (addressArray.some(item => item.length < 5)) {
+      setAddressError('Неправильно заполнен адрес');
+    } else {
+      setAddressError('');
+    }
+} else {
+  setAddressError('Неправильно заполнен адрес');
+}
 }
   
 
@@ -73,31 +93,64 @@ const nameHandler = (e) => {
   const blurHandler = (e) => {
     if (e.target.name === 'email') {
       setEmailDirty(true);
-    } else if (e.target.name === 'password') {
-      setPasswordDirty(true);
     } else if (e.target.name === 'name') {
       setNameDirty(true);
+    } else if (e.target.name === 'phone') {
+      setPhoneDirty(true);
+    } else if (e.target.name === 'address') {
+      setAddressDirty(true);
     }
   }
 
   return (
-    <form>
-      {(nameDirty && nameError) && <div style={{color: 'red'}}>{nameError}</div>}
-      <input value={name} onChange={nameHandler} onBlur={blurHandler} type='text' name='name' placeholder='Enter your name and surname..' />
+    <div className={s.formWrapper}>
+      
+      <form className={s.form}>
+      <h2 className={s.title}>Personal details</h2>
+      {(nameDirty && nameError) && <div className={s.error}>{nameError}</div>}
+      <input value={name} 
+      onChange={nameHandler}
+      onBlur={blurHandler}
+      type='text'
+      name='name' 
+      placeholder='Name'
+      className={s.inputField} />
 
-      <PhoneInput
-      placeholder="Enter phone number"
-      value={phone}
-      defaultCountry="US"
-      onChange={setPhone}/>
+    {(phoneDirty && phoneError) && <div className={s.error}>{phoneError}</div>}
+     <input value={phone} 
+     onBlur={blurHandler}
+     onChange={phoneHandler}
+     type='text' 
+     name='phone' 
+     placeholder='Phone'
+     className={s.inputField}/>
 
-      {(emailDirty && emailError) && <div style={{color: 'red'}}>{emailError}</div>}
-      <input value={email} onChange={emailHandler} onBlur={blurHandler} type='text' name='email' placeholder='Enter your email..' />
+      {(emailDirty && emailError) && <div className={s.error}>{emailError}</div>}
+      <input 
+      value={email} 
+      onChange={emailHandler} 
+      onBlur={blurHandler} 
+      type='text'
+      name='email' 
+      placeholder='Email'
+      className={s.inputField} />
 
-      {(passwordError && passwordDirty) && <div style={{color: 'red'}}>{passwordError}</div>}
-      <input value={password} onChange={passwordHandler} onBlur={blurHandler} type='password' name='password' placeholder='Enter your password..' />
+      {(addressDirty && addressError) && <div className={s.error}>{addressError}</div>}
+      <input 
+      value={address} 
+      onChange={addressHandler} 
+      onBlur={blurHandler} 
+      type='text'
+      name='address' 
+      placeholder='Address'
+      className={s.inputField} />
 
-      <button disabled={!formValid} type='submit'>submit</button>
+      <h2 className={s.title}>Credit card details</h2>
+      <PaymentForm />
+
+      <button className={s.bntSubmit} disabled={!formValid} type='submit'>submit</button>
     </form>
+    </div>
+    
   )
 }
