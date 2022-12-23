@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea, CardActions, Button as MaterialButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
+import { NavLink } from 'react-router-dom';
 
 import { IProduct } from '../../../../redux/products/ProductInterface';
 
@@ -20,7 +21,8 @@ export const ProductCard: React.FC<IProductCardInterface> = ({
 }: IProductCardInterface) => {
   return (
     <>
-      <Card sx={{ maxWidth: 345, width: '100%', height: 460 }}>
+    <NavLink to={'/ProductPage/'+String(product.id)}>
+    <Card sx={{ maxWidth: 345, width: '100%', height: 460 }}>
         <CardActionArea>
           <CardMedia
             component='img'
@@ -65,6 +67,8 @@ export const ProductCard: React.FC<IProductCardInterface> = ({
           </MaterialButton>
         </CardActions>
       </Card>
+    </NavLink>
+
     </>
   );
 };
