@@ -10,8 +10,7 @@ const App = () => {
       <MainPage />
       <Footer />
     </div>
-    
-  )
-}
+  );
+};
 
 export default App;
