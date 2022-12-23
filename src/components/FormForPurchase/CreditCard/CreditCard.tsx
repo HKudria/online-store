@@ -13,11 +13,11 @@ export default class PaymentForm extends React.Component {
     value: '',
   };
 
-  handleInputFocus = (e) => {
+  handleInputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ focus: e.target.name });
   }
   
-  handleInputChangeCardNumber = (e) => {
+  handleInputChangeCardNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     
     this.setState({ [name]: value });
@@ -25,7 +25,7 @@ export default class PaymentForm extends React.Component {
     e.target.value = e.target.value.replace(/\D/g,'');
   }
 
-  handleInputChangeExpiry = (e) => {
+  handleInputChangeExpiry = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const month = e.target.value[0] + e.target.value[1];
     const day = e.target.value[2] + e.target.value[3];
@@ -42,7 +42,7 @@ export default class PaymentForm extends React.Component {
     }
   }
 
-  handleInputChangeCVC = (e) => {
+  handleInputChangeCVC = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     
     this.setState({ [name]: value });

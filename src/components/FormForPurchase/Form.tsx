@@ -2,37 +2,33 @@ import s from './Form.module.css';
 import { useState, useEffect } from 'react';
 import PaymentForm from './CreditCard/CreditCard';
 
-
-
 export const Form = () => {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState()
-  const [address, setAddress] = useState()
+  const [email, setEmail] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [phone, setPhone] = useState<string>('')
+  const [address, setAddress] = useState<string>('')
 
-  const [emailDirty, setEmailDirty] = useState(false);
-  const [nameDirty, setNameDirty] = useState(false);
-  const [phoneDirty, setPhoneDirty] = useState(false);
-  const [addressDirty, setAddressDirty] = useState(false);
+  const [emailDirty, setEmailDirty] = useState<boolean>(false);
+  const [nameDirty, setNameDirty] = useState<boolean>(false);
+  const [phoneDirty, setPhoneDirty] = useState<boolean>(false);
+  const [addressDirty, setAddressDirty] = useState<boolean>(false);
 
-  const [emailError, setEmailError] = useState('Email cannot be empty');
-  const [nameError, setNameError] = useState('Name cannot be empty');
-  const [phoneError, setPhoneError] = useState('Phone number cannot be empty');
-  const [addressError, setAddressError] = useState('Address cannot be empty');
-
-  
+  const [emailError, setEmailError] = useState<string>('Email cannot be empty');
+  const [nameError, setNameError] = useState<string>('Name cannot be empty');
+  const [phoneError, setPhoneError] = useState<string>('Phone number cannot be empty');
+  const [addressError, setAddressError] = useState<string>('Address cannot be empty');
 
   const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
-    if (nameError || emailError || phoneError || addressError) {
+    if ((nameError.length > 0) || (emailError.length > 0) || (phoneError.length > 0) || (addressError.length > 0)) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
   }, [nameError, emailError, phoneError, addressError]);
 
-  const nameHandler = (e) => {
+  const nameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
     const nameAndSurname = e.target.value;
     const arrayOfNameAndSurname = nameAndSurname.split(' ');
@@ -47,7 +43,7 @@ export const Form = () => {
     }
   } 
 
-const emailHandler = (e) => {
+const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
   setEmail(e.target.value);
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   if (!re.test(String(e.target.value).toLowerCase())) {
@@ -57,7 +53,7 @@ const emailHandler = (e) => {
   }
 };
 
-const phoneHandler = (e) => {
+const phoneHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
   setPhone(e.target.value);
   const phoneNumber = e.target.value;
   if (phoneNumber[0] === '+' && phoneNumber.length > 9) {
@@ -73,7 +69,7 @@ const phoneHandler = (e) => {
   }
 }
 
-const addressHandler = (e) => {
+const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
   setAddress(e.target.value);
   const addressStr = e.target.value;
   const addressArray = addressStr.split(' ');
@@ -88,9 +84,7 @@ const addressHandler = (e) => {
 }
 }
   
-
-
-  const blurHandler = (e) => {
+  const blurHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'email') {
       setEmailDirty(true);
     } else if (e.target.name === 'name') {
@@ -103,11 +97,12 @@ const addressHandler = (e) => {
   }
 
   return (
-    <div className={s.formWrapper}>
+    <div className={s.container}>
+      <div className={s.formWrapper}>
       
       <form className={s.form}>
       <h2 className={s.title}>Personal details</h2>
-      {(nameDirty && nameError) && <div className={s.error}>{nameError}</div>}
+      {(nameDirty && (nameError.length > 0)) && <div className={s.error}>{nameError}</div>}
       <input value={name} 
       onChange={nameHandler}
       onBlur={blurHandler}
@@ -116,7 +111,7 @@ const addressHandler = (e) => {
       placeholder='Name'
       className={s.inputField} />
 
-    {(phoneDirty && phoneError) && <div className={s.error}>{phoneError}</div>}
+    {(phoneDirty && (phoneError.length > 0)) && <div className={s.error}>{phoneError}</div>}
      <input value={phone} 
      onBlur={blurHandler}
      onChange={phoneHandler}
@@ -125,7 +120,7 @@ const addressHandler = (e) => {
      placeholder='Phone'
      className={s.inputField}/>
 
-      {(emailDirty && emailError) && <div className={s.error}>{emailError}</div>}
+      {(emailDirty && (emailError.length > 0)) && <div className={s.error}>{emailError}</div>}
       <input 
       value={email} 
       onChange={emailHandler} 
@@ -135,7 +130,7 @@ const addressHandler = (e) => {
       placeholder='Email'
       className={s.inputField} />
 
-      {(addressDirty && addressError) && <div className={s.error}>{addressError}</div>}
+      {(addressDirty && (addressError.length > 0)) && <div className={s.error}>{addressError}</div>}
       <input 
       value={address} 
       onChange={addressHandler} 
@@ -151,6 +146,6 @@ const addressHandler = (e) => {
       <button className={s.bntSubmit} disabled={!formValid} type='submit'>Confirm</button>
     </form>
     </div>
-    
+    </div>
   )
 }
