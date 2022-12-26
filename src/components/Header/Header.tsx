@@ -7,7 +7,7 @@ import logo from '../../assets/image/logo.png';
 export const Header = () => {
   return (
     <header className={s.header}>
-      <NavLink to='MainPage' className={s.logoWrapper}>
+      <NavLink to='/' className={s.logoWrapper}>
           <img className={s.logo} alt='logo' src={logo}></img>
           <h1>Online Store</h1>
       </NavLink>
