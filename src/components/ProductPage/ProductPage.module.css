@@ -37,6 +37,7 @@
 .miniPhotoItem {
   width: 200px;
   height: 100px;
+  padding-bottom: 10px;
 }
 
 .bigPhotoItem {
