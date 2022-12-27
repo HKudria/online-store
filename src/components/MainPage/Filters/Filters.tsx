@@ -11,7 +11,7 @@ interface IFiltersInterface {
   store: ProductsState;
   selectedCategories: string[];
   onChangeCategory: (category: string) => void;
-  onChangeBrands: (category: string) => void;
+  onChangeBrands: (category: string, reset?: boolean) => void;
   onChangePrice: (number: number[]) => void;
   onChangeStock: (number: number[]) => void;
   resetFilter: () => void;
