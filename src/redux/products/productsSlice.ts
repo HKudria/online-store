@@ -103,7 +103,6 @@ export const productsSlice = createSlice({
             }
         },
         filterProduct(state, action: PayloadAction<IFilter>) {
-            console.log(action.payload)
             state.isFilter = true;
             if (
                 action.payload.categories.length !== 0 ||
