@@ -143,6 +143,7 @@ export const MainPage = () => {
             <Products
                 products={products.filteredProduct}
                 status={products.status}
+                sortType={sortParams}
                 viewType={viewType}
                 onChangeSearch={setSearch}
                 onChangeView={setViewType}

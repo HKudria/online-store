@@ -12,12 +12,13 @@ interface IProductsProps {
   products: IProduct[];
   status: string;
   viewType: string;
+  sortType: string;
   onChangeSearch: (search: string) => void;
   onChangeView: (view: string) => void;
   sortProduct: (sort: string) => void;
 }
 
-export const Products = ({ products, status, viewType, onChangeSearch, onChangeView, sortProduct }: IProductsProps) => {
+export const Products = ({ products, status, viewType, onChangeSearch, onChangeView, sortProduct, sortType }: IProductsProps) => {
 
   if (status === 'loading') {
     return (
@@ -27,21 +28,29 @@ export const Products = ({ products, status, viewType, onChangeSearch, onChangeV
     );
   }
 
+  const notFoundMessage = () => {
+      return (
+          <div><h1>Products not found</h1></div>
+      )
+    }
+
   return (
     <div className={s.productsWrapper}>
       <ProductsHeader
         count={products.length}
+        sortType={sortType}
         sort={sortProduct}
         view={onChangeView}
         filter={onChangeSearch}
       />
       <div className={s.cardWrapper}>
-        {products.map((product) => {
+        {products.length !== 0 ? products.map((product) => {
           if (viewType === ProductsCardSizeEnum.Full) {
             return <ProductCard key={product.id} product={product} />;
           }
           return <ProductCardSmall key={product.id} product={product} />;
-        })}
+        }) : notFoundMessage()
+        }
       </div>
     </div>
   );
