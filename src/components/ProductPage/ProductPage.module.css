@@ -27,6 +27,7 @@
 .content {
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .miniPhoto {
@@ -37,15 +38,69 @@
 .miniPhotoItem {
   width: 200px;
   height: 100px;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border: 1px solid grey;
+  border-radius: 3px;
 }
 
 .bigPhotoItem {
   width: 500px;
-  height: 300px;
+  height: 400px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin-left: 30px;
 }
 
 .photo {
   display: flex;
+  align-items: center;
+}
 
+.breadCrumbsItem {
+  font-size: 30px;
+  text-decoration: none;
+  color: grey;
+}
+
+.productName {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  color: orange;
+}
+
+.descriptionAbout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  background-color: rgb(227, 163, 66);
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.desctiptionItem {
+  color: white;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.button {
+  width: 180px;
+  height: 60px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.sum {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0;
 }
