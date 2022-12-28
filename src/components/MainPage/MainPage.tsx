@@ -76,11 +76,11 @@ export const MainPage = () => {
         setSearchParams(serializeQuery({
             'category': categories,
             'brand': brands,
-            'price': price,
-            'stock': stock,
+            price,
+            stock,
             'sort': sortParams,
             'view': viewType,
-            'search': search
+            search
         }))
     }, [brands, categories, price, stock, search, sortParams, viewType]);
 
