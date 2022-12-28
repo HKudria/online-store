@@ -1,6 +1,6 @@
 import s from './ProductsHeader.module.scss';
 
-import { ProductsCardSizeEnum } from '../Products';
+import {ProductsCardSizeEnum} from '../../MainPage';
 
 import layout1 from '../../../../assets/image/layout_1.png';
 import layout2 from '../../../../assets/image/layout_2.png';
@@ -17,12 +17,12 @@ export const ProductsHeader = ({ count, sort, view, filter }: IProductHeaderProp
     <div className={s.headersWrapper}>
       <select onChange={(value) => sort(value.currentTarget.value)}>
         <option>Select sort options</option>
-        <option value='asc.price'>Sort by price ASC</option>
-        <option value='desc.price'>Sort by price DESC</option>
-        <option value='asc.rating'>Sort by rating ASC</option>
-        <option value='desc.rating'>Sort by rating DESC</option>
-        <option value='asc.discountPercentage'>Sort by Discount ASC</option>
-        <option value='desc.discountPercentage'>Sort by discount DESC</option>
+        <option value='asc↑price'>Sort by price ASC</option>
+        <option value='desc↑price'>Sort by price DESC</option>
+        <option value='asc↑rating'>Sort by rating ASC</option>
+        <option value='desc↑rating'>Sort by rating DESC</option>
+        <option value='asc↑discountPercentage'>Sort by Discount ASC</option>
+        <option value='desc↑discountPercentage'>Sort by discount DESC</option>
       </select>
       <p>
         Found:<span>{count}</span>

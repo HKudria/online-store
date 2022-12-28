@@ -46,11 +46,26 @@ export const Filters = ({
     });
   }, [store, selectedCategories]);
 
+  const copyLink = async () => {
+    console.log(window.location.href)
+    // document.execCommand("copy")
+    // window.prompt('Copy to clipboard: Ctrl+C, Enter', window.location.href);
+    // window.clipboardData.setData('Text', textToPutOnClipboard);
+    try {
+      const toCopy = window.location.href;
+      await navigator.clipboard.writeText(toCopy);
+      window.alert('Page URL has been copied');
+    }
+    catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  }
+
   return (
     <div className={s.filterContent}>
       <div className={s.buttonsWrapper}>
         <Button name='Reset Filters' callback={resetFilter} />
-        <Button name='Copy Link' />
+        <Button name='Copy Link' callback={copyLink}/>
       </div>
       <div className={s.filtersWrapper}>
         <FilterBlock title='Category' data={Array.from(categories)} onChangeFn={onChangeCategory} />

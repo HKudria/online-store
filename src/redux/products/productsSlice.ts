@@ -15,9 +15,6 @@ export interface ProductsState {
     maxPrice: number;
     minStock: number;
     maxStock: number;
-    sortProduct: string;
-    search: string;
-    view: string;
 }
 
 interface ISort {
@@ -30,6 +27,7 @@ interface IFilter {
     brands: string[];
     price: number[];
     stock: number[];
+    search: string
 }
 
 const initialState: ProductsState = {
@@ -43,9 +41,6 @@ const initialState: ProductsState = {
     maxPrice: 0,
     minStock: 0,
     maxStock: 0,
-    sortProduct: '',
-    search: '',
-    view: 'fullView',
 };
 
 export const parseProducts = createAsyncThunk('products/fetchProducts', async () => {
@@ -106,30 +101,17 @@ export const productsSlice = createSlice({
                  state.products.sort((a, b) => b[action.payload.action] - a[action.payload.action]);
                  state.filteredProduct.sort((a, b) => b[action.payload.action] - a[action.payload.action]);
             }
-
-            state.sortProduct = action.payload.type + '↑' + action.payload.action;
-        },
-        findProduct(state, action: PayloadAction<string>) {
-            state.filteredProduct = state.products.filter(
-                (product) =>
-                    product.description.toLowerCase().includes(action.payload.toLowerCase()) ||
-                    product.title.toLowerCase().includes(action.payload.toLowerCase()),
-            );
-            const minMax = findMinMax(state.filteredProduct);
-            state.minPrice = minMax.minPrice;
-            state.maxPrice = minMax.maxPrice;
-            state.minStock = minMax.minStock;
-            state.maxStock = minMax.maxStock;
         },
         filterProduct(state, action: PayloadAction<IFilter>) {
+            console.log(action.payload)
             state.isFilter = true;
             if (
                 action.payload.categories.length !== 0 ||
                 action.payload.brands.length !== 0 ||
                 action.payload.price.length !== 0 ||
-                action.payload.stock.length !== 0
+                action.payload.stock.length !== 0 ||
+                action.payload.search.length !==0
             ) {
-                console.log(state.filteredProduct)
                 state.filteredProduct = filterByStock(
                     filterByPrice(
                         filterByBrand(
@@ -139,6 +121,10 @@ export const productsSlice = createSlice({
                         action.payload.price,
                     ),
                     action.payload.stock,
+                ).filter(
+                    (product) =>
+                        product.description.toLowerCase().includes(action.payload.search.toLowerCase()) ||
+                        product.title.toLowerCase().includes(action.payload.search.toLowerCase()),
                 );
             } else {
                 state.filteredProduct = state.products;
@@ -175,7 +161,7 @@ export const productsSlice = createSlice({
     },
 });
 
-export const {sort, findProduct, filterProduct} = productsSlice.actions;
+export const {sort, filterProduct} = productsSlice.actions;
 
 export const getProductsState = (state: RootState): ProductsState => state.products;
 
