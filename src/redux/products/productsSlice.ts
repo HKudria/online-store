@@ -123,7 +123,13 @@ export const productsSlice = createSlice({
                 ).filter(
                     (product) =>
                         product.description.toLowerCase().includes(action.payload.search.toLowerCase()) ||
-                        product.title.toLowerCase().includes(action.payload.search.toLowerCase()),
+                        product.title.toLowerCase().includes(action.payload.search.toLowerCase()) ||
+                        product.category.toLowerCase().includes(action.payload.search.toLowerCase()) ||
+                        product.brand.toLowerCase().includes(action.payload.search.toLowerCase()) ||
+                        product.stock === parseInt(action.payload.search) ||
+                        product.price === parseInt(action.payload.search) ||
+                        product.discountPercentage === parseFloat(action.payload.search) ||
+                        product.rating === parseFloat(action.payload.search),
                 );
             } else {
                 state.filteredProduct = state.products;
