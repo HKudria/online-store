@@ -10,6 +10,7 @@ import { ProductsState } from '../../../redux/products/productsSlice';
 interface IFiltersInterface {
   store: ProductsState;
   selectedCategories: string[];
+  selectedBrands: string[];
   onChangeCategory: (category: string) => void;
   onChangeBrands: (category: string, reset?: boolean) => void;
   onChangePrice: (number: number[]) => void;
@@ -20,12 +21,12 @@ interface IFiltersInterface {
 export const Filters = ({
   store,
   selectedCategories,
+  selectedBrands,
   onChangeCategory,
   onChangeBrands,
   onChangePrice,
   onChangeStock,
-  resetFilter,
-}: IFiltersInterface) => {
+  resetFilter}: IFiltersInterface) => {
   const [categories, setCategories] = useState<Set<string>>(new Set());
   const [brands, setBrands] = useState<Set<string>>(new Set());
 
@@ -47,10 +48,6 @@ export const Filters = ({
   }, [store, selectedCategories]);
 
   const copyLink = async () => {
-    console.log(window.location.href)
-    // document.execCommand("copy")
-    // window.prompt('Copy to clipboard: Ctrl+C, Enter', window.location.href);
-    // window.clipboardData.setData('Text', textToPutOnClipboard);
     try {
       const toCopy = window.location.href;
       await navigator.clipboard.writeText(toCopy);
@@ -68,8 +65,8 @@ export const Filters = ({
         <Button name='Copy Link' callback={copyLink}/>
       </div>
       <div className={s.filtersWrapper}>
-        <FilterBlock title='Category' data={Array.from(categories)} onChangeFn={onChangeCategory} />
-        <FilterBlock title='Brand' data={Array.from(brands)} onChangeFn={onChangeBrands} />
+        <FilterBlock title='Category' data={Array.from(categories)} onChangeFn={onChangeCategory} selected={selectedCategories}/>
+        <FilterBlock title='Brand' data={Array.from(brands)} onChangeFn={onChangeBrands} selected={selectedBrands}/>
         <RangeBlock
           title='Price'
           from={store.minPrice}

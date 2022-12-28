@@ -60,7 +60,7 @@ export const MainPage = () => {
     }
 
     useEffect(() => {
-        deserializeQuery(['category', 'brands', 'price', 'stock', 'view', 'search', 'sort'])
+        deserializeQuery(['category', 'brand', 'price', 'stock', 'view', 'search', 'sort'])
     }, []);
 
     useEffect(() => {
@@ -133,6 +133,7 @@ export const MainPage = () => {
             <Filters
                 store={products}
                 selectedCategories={categories}
+                selectedBrands={brands}
                 onChangeCategory={onChangeCategory}
                 onChangeBrands={onChangeBrands}
                 onChangePrice={setPrice}
