@@ -40,6 +40,7 @@ export const Filters = ({
             tmpSet.add(product.brand);
           }
         });
+        selectedBrands.forEach(brand => tmpSet.add(brand))
         setBrands(tmpSet);
       } else {
         setBrands((set) => set.add(product.brand));

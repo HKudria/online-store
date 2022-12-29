@@ -123,9 +123,6 @@ export const MainPage = () => {
         setBrands([]);
         setPrice([]);
         setStock([]);
-        document.querySelectorAll('input[type=checkbox]').forEach((el) => {
-            (el as HTMLInputElement).checked = false;
-        });
     };
 
     return (

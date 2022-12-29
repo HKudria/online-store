@@ -15,7 +15,6 @@ export const RangeBlock = ({ title, from, to, onChange, initMax }: IRangeProps) 
     <div className={s.rangeWrapper}>
       <h2 className={s.title}>{title}</h2>
       <div className={s.diapason}>
-
         <p>0 | {isFinite(from) ? from : 0 }</p>
         <p>⟷</p>
         <p>
