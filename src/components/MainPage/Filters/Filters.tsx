@@ -12,7 +12,7 @@ interface IFiltersInterface {
   selectedCategories: string[];
   selectedBrands: string[];
   onChangeCategory: (category: string) => void;
-  onChangeBrands: (category: string, reset?: boolean) => void;
+  onChangeBrands: (category: string) => void;
   onChangePrice: (number: number[]) => void;
   onChangeStock: (number: number[]) => void;
   resetFilter: () => void;

@@ -29,34 +29,34 @@ export const MainPage = () => {
 
     const deserializeQuery = async (params: string[]) => {
         await dispatch(parseProducts());
-            params.forEach((key) => {
-                const data = query.get(key)
-                if (data !== null && data.length > 0) {
-                    switch (key) {
-                        case 'category':
-                            setCategories(data.split('↑'))
-                            break;
-                        case 'brand':
-                            setBrands(data.split('↑'))
-                            break;
-                        case 'price':
-                            setPrice(data.split('↑').map(el => parseInt(el)))
-                            break;
-                        case 'stock':
-                            setStock(data.split('↑').map(el => parseInt(el)))
-                            break;
-                        case 'view':
-                            setViewType(data)
-                            break;
-                        case 'sort':
-                            sortProducts(data)
-                            break;
-                        case 'search':
-                            setSearch(data)
-                            break;
-                    }
+        params.forEach((key) => {
+            const data = query.get(key)
+            if (data !== null && data.length > 0) {
+                switch (key) {
+                    case 'category':
+                        setCategories(data.split('↑'))
+                        break;
+                    case 'brand':
+                        setBrands(data.split('↑'))
+                        break;
+                    case 'price':
+                        setPrice(data.split('↑').map(el => parseInt(el)))
+                        break;
+                    case 'stock':
+                        setStock(data.split('↑').map(el => parseInt(el)))
+                        break;
+                    case 'view':
+                        setViewType(data)
+                        break;
+                    case 'sort':
+                        sortProducts(data)
+                        break;
+                    case 'search':
+                        setSearch(data)
+                        break;
                 }
-            })
+            }
+        })
     }
 
     useEffect(() => {
@@ -93,16 +93,12 @@ export const MainPage = () => {
         }
     };
 
-    const onChangeBrands = (brand: string, reset?: boolean) => {
-        if ((reset === true)) {
-            setBrands([''])
+    const onChangeBrands = (brand: string) => {
+        if (!brands.includes(brand)) {
+            setBrands((old) => [...old, brand]);
         } else {
-            if (!brands.includes(brand)) {
-                setBrands((old) => [...old, brand]);
-            } else {
-                const filteredArray = brands.filter((item) => item !== brand);
-                setBrands(filteredArray);
-            }
+            const filteredArray = brands.filter((item) => item !== brand);
+            setBrands(filteredArray);
         }
     };
 
