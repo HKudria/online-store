@@ -11,6 +11,8 @@ import { NavLink } from 'react-router-dom';
 import { IProduct } from '../../../../redux/products/ProductInterface';
 
 import iPhone from '../../../../assets/image/iphone.png';
+import {useAppDispatch} from '../../../../redux/hooks';
+import {addToBasket} from '../../../../redux/basket/basketSlice';
 
 interface IProductCardInterface {
   product: IProduct;
@@ -19,6 +21,13 @@ interface IProductCardInterface {
 export const ProductCard: React.FC<IProductCardInterface> = ({
   product,
 }: IProductCardInterface) => {
+  const dispatch = useAppDispatch();
+
+  const addProductToBasket = (event: React.MouseEvent) => {
+    event.preventDefault()
+      dispatch(addToBasket(product))
+  }
+
   return (
     <>
     <NavLink to={'/ProductPage/'+String(product.id)}>
@@ -59,7 +68,7 @@ export const ProductCard: React.FC<IProductCardInterface> = ({
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <MaterialButton size='small' color='primary'>
+          <MaterialButton size='small' color='primary' onClick={(e) => addProductToBasket(e)}>
             Add to card
           </MaterialButton>
           <MaterialButton size='small' color='primary'>
