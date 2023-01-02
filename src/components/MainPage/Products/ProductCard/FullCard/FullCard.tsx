@@ -13,8 +13,8 @@ import {BasketButton} from '../BasketButton/BasketButton';
 
 interface IProductCardInterface {
     product: IProduct;
-    isAdded: boolean;
-    callback: (e: React.MouseEvent) => void;
+    isAdded?: boolean;
+    callback?: (e: React.MouseEvent) => void;
     count?: number
 }
 
@@ -59,7 +59,7 @@ export const FullCard: React.FC<IProductCardInterface> = ({product, isAdded, cal
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    {count === undefined ? <MainPageButton isAdded={isAdded} callback={callback}  /> :
+                    {count === undefined ? <MainPageButton isAdded={isAdded ?? false} callback={callback ?? undefined}  /> :
                         <BasketButton product={product} count={count} /> }
                 </CardActions>
             </Card>

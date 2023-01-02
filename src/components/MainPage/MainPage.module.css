@@ -1,5 +1,4 @@
 .wrapper {
-  display: flex;
-  align-items: center;
-  position: relative;
+  display: grid;
+  grid-template-columns: 20% 79%;
 }

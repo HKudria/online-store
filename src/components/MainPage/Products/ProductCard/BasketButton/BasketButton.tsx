@@ -3,6 +3,7 @@ import React from 'react';
 import {useAppDispatch} from '../../../../../redux/hooks';
 import {IProduct} from '../../../../../redux/products/ProductInterface';
 import {addToBasket, removeFromBasket} from '../../../../../redux/basket/basketSlice';
+import {NavLink} from 'react-router-dom';
 
 interface IMainPageButtonProps {
     product: IProduct;
@@ -15,11 +16,14 @@ export const BasketButton = ({product, count}: IMainPageButtonProps) => {
     return (
         <>
             <MaterialButton size='small' color='primary' onClick={() => dispatch(addToBasket(product))} >
-                Add to card
+                ADD
             </MaterialButton>
-            {count}
+            -- ({count}) --
             <MaterialButton size='small' color='primary' onClick={() => dispatch(removeFromBasket({product}))}>
-                Remove from basket
+                REMOVE
+            </MaterialButton>
+            <MaterialButton size='small' color='secondary' onClick={() => dispatch(removeFromBasket({product}))}>
+                <NavLink to={'/ProductPage/' + String(product.id)}>MORE</NavLink>
             </MaterialButton>
         </>
     )
