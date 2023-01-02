@@ -1,0 +1,25 @@
+.header {
+  background-color: #c0c0c0;
+  width: 100%;
+  height: 80px;
+  border: 1px solid #696969;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.totalCard {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.logoWrapper {
+  display: flex;
+  padding-left: 30px;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+}
