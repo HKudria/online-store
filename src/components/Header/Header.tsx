@@ -3,8 +3,27 @@ import { Basket } from './Basket/Basket';
 import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/image/logo.png';
+import {useAppSelector} from '../../redux/hooks';
+import {getBasketState} from '../../redux/basket/basketSlice';
+import {useEffect, useState} from 'react';
 
 export const Header = () => {
+    const basket = useAppSelector(getBasketState);
+    const [amount, setAmount] = useState<number>(0)
+    const [productCount, setProductCount] = useState<number>(0)
+
+    useEffect(() => {
+       if(basket.discount.length === 0){
+           setAmount(basket.totalAmount)
+       } else {
+           setAmount(basket.discountAmount)
+       }
+       setProductCount(basket.products.reduce((acc, prod)=>{
+           acc += prod.value
+           return acc;
+       },0))
+    }, [basket.discount, basket.products]);
+
   return (
     <header className={s.header}>
       <NavLink to='/' className={s.logoWrapper}>
@@ -13,9 +32,9 @@ export const Header = () => {
       </NavLink>
 
       <p className={s.totalCard}>
-        Card Total:<span>€0</span>
+        Card Total:<span>{amount}€</span>
       </p>
-      <Basket />
+      <Basket count={productCount}/>
     </header>
   );
 };

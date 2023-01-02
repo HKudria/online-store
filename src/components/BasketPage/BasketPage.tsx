@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {getBasketState, initBasket} from '../../redux/basket/basketSlice';
 import {FullCard} from '../MainPage/Products/ProductCard/FullCard/FullCard';
+import {PromoBlock} from './PromoBlock/PromoBlock';
 
 interface IBasketProps {
     itemsPerPage: number
@@ -30,6 +31,7 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
 
     return (
         <>
+            <PromoBlock basket={basket}/>
             <div className={s.wrapper}>
                 {currentItems.map((item) => (
                     <div className={s.card} key={item.key.id + item.key.rating}>
