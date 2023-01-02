@@ -26,6 +26,12 @@ export const basketSlice = createSlice({
     name: 'basket',
     initialState,
     reducers: {
+        initBasket(state){
+            const basket = localStorage.getItem('basket')
+            if(basket !== null){
+                state.products = JSON.parse(basket).products
+            }
+        },
         addToBasket(state, action: PayloadAction<IProduct>) {
             let isNew = false;
             state.products.forEach((product, index) => {
@@ -40,6 +46,7 @@ export const basketSlice = createSlice({
                     value: 1
                 })
             }
+            localStorage.setItem('basket', JSON.stringify(state))
         },
         removeFromBasket(state, action: PayloadAction<IRemoveAction>) {
             let id = -1;
@@ -61,14 +68,15 @@ export const basketSlice = createSlice({
               })
             }
             if (id >= 0) {
-                state.products.splice(id)
+                state.products.splice(id, 1)
             }
+            localStorage.setItem('basket', JSON.stringify(state))
         },
     }
 });
 
-export const {addToBasket, removeFromBasket} = basketSlice.actions;
+export const {addToBasket, removeFromBasket, initBasket} = basketSlice.actions;
 
-export const getBasketStateState = (state: RootState): BasketState => state.basket;
+export const getBasketState = (state: RootState): BasketState => state.basket;
 
 export default basketSlice.reducer;

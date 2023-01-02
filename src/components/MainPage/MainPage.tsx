@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { filterProduct, getProductsState, parseProducts } from '../../redux/products/productsSlice';
+import { initBasket } from '../../redux/basket/basketSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 import s from './MainPage.module.css';
@@ -16,6 +17,7 @@ export const MainPage = () => {
   const [stock, setStock] = useState<number[]>([]);
 
   useEffect(() => {
+    dispatch(initBasket());
     dispatch(parseProducts());
   }, []);
 

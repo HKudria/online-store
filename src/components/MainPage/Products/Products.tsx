@@ -8,7 +8,6 @@ import { IProduct } from '../../../redux/products/ProductInterface';
 import s from './Products.module.css';
 import { ProductsHeader } from './ProductsHeader/ProductsHeader';
 import { ProductCard } from './ProductCard/ProductCard';
-import { ProductCardSmall } from './ProductCardSmall/ProductCardSmall';
 
 export enum ProductsCardSizeEnum {
   Small = 'small',
@@ -58,10 +57,7 @@ export const Products = ({ products, status }: IProductsProps) => {
       />
       <div className={s.cardWrapper}>
         {products.map((product) => {
-          if (viewType === ProductsCardSizeEnum.Full) {
-            return <ProductCard key={product.id} product={product} />;
-          }
-          return <ProductCardSmall key={product.id} product={product} />;
+            return <ProductCard key={product.id} product={product} viewType={viewType}/>;
         })}
       </div>
     </div>
