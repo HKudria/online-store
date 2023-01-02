@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { useAppDispatch } from '../../../redux/hooks';
-import { findProduct, sort } from '../../../redux/products/productsSlice';
 import { IProduct } from '../../../redux/products/ProductInterface';
 
 import s from './Products.module.css';
@@ -14,19 +11,18 @@ export enum ProductsCardSizeEnum {
   Full = 'full',
 }
 
+
 interface IProductsProps {
   products: IProduct[];
   status: string;
+  viewType: string;
+  sortType: string;
+  onChangeSearch: (search: string) => void;
+  onChangeView: (view: string) => void;
+  sortProduct: (sort: string) => void;
 }
 
-export const Products = ({ products, status }: IProductsProps) => {
-  const dispatch = useAppDispatch();
-  const [viewType, setViewType] = useState<string>(ProductsCardSizeEnum.Full);
-  const [filter, setFilter] = useState<string>('');
-
-  useEffect(() => {
-    dispatch(findProduct(filter));
-  }, [filter]);
+export const Products = ({ products, status, viewType, onChangeSearch, onChangeView, sortProduct, sortType }: IProductsProps) => {
 
   if (status === 'loading') {
     return (
@@ -36,30 +32,26 @@ export const Products = ({ products, status }: IProductsProps) => {
     );
   }
 
-  const sortProducts = (value: string) => {
-    const parseValue = value.split('.');
-    if (
-      parseValue[1] === 'price' ||
-      parseValue[1] === 'rating' ||
-      parseValue[1] === 'discountPercentage'
-    ) {
-      dispatch(sort({ type: parseValue[0], action: parseValue[1] }));
+  const notFoundMessage = () => {
+      return (
+          <div><h1>Products not found</h1></div>
+      )
     }
-  };
 
   return (
-    <div className={s.productsWrapper}>
-      <ProductsHeader
-        count={products.length}
-        sort={sortProducts}
-        view={setViewType}
-        filter={setFilter}
-      />
-      <div className={s.cardWrapper}>
-        {products.map((product) => {
+      <div className={s.productsWrapper}>
+        <ProductsHeader
+            count={products.length}
+            sortType={sortType}
+            sort={sortProduct}
+            view={onChangeView}
+            filter={onChangeSearch}
+        />
+        <div className={s.cardWrapper}>
+          {products.length !== 0 ? products.map((product) => {
             return <ProductCard key={product.id} product={product} viewType={viewType}/>;
-        })}
+          }) : notFoundMessage() }
+        </div>
       </div>
-    </div>
   );
 };
