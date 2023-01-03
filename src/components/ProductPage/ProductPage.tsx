@@ -1,7 +1,7 @@
 import s from './ProductPage.module.css';
 import { useEffect, useState } from 'react';
 import { IProduct } from '../../redux/products/ProductInterface';
-import { NavLink } from 'react-router-dom';
+import { createSearchParams, NavLink, useNavigate } from 'react-router-dom';
 import products from '../../data.json';
 
 
@@ -23,12 +23,23 @@ export const ProductPage = () => {
     images: [],
   }]
 
-  // const buyBtnHandler = () => {
-
-  // }
 
   const [product, setProduct] = useState(defaultProduct);
   const [image, setImage] = useState(products.products[+path - 1].thumbnail);
+
+  // const [productForm, setProductForm] = useState(false);
+
+  const navigate = useNavigate();
+  const params = { page: 'modal'};
+
+  const goToBasket = () =>
+    navigate({
+      pathname: '../BasketPage',
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      search: `?${createSearchParams(params)}`,
+    });
+
+
   
   useEffect(() => {
     const currentProduct = products.products.filter((item: IProduct) => item.id === +path);
@@ -67,9 +78,11 @@ export const ProductPage = () => {
         <div className={s.buttons}>
           <h3 className={s.sum}>{product[0].price} <span>$</span></h3>
           <button className={s.button}>ADD TO CARD</button>
-          <NavLink to='../BasketPage'>
-            <button className={s.button}>BUY NOW</button>
-          </NavLink>
+          {/* <NavLink to='../BasketPage'> */}
+            <button
+            onClick={goToBasket}
+             className={s.button}>BUY NOW</button>
+          {/* </NavLink> */}
           
         </div>
       </div>

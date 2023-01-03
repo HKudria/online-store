@@ -1,0 +1,10 @@
+.paymentFormWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputField {
+  margin: 5px auto;
+  width: 200px;
+  height: 20px;
+}
