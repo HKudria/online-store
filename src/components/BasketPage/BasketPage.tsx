@@ -44,7 +44,7 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
                         setItemsPage(parseInt(data))
                         break;
                     case 'pageNumber':
-                        handlePageClick({selected: parseInt(data) > basket.products.length/itemsPage  ? 0 : parseInt(data)})
+                        handlePageClick({selected: parseInt(data) > basket.products.length / itemsPage ? 0 : parseInt(data)})
                         break;
                 }
             }
@@ -57,11 +57,11 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
     }, []);
 
     useEffect(() => {
-        deserializeQuery(['itemPerPage','pageNumber'])
+        deserializeQuery(['itemPerPage', 'pageNumber'])
     }, [basket.products]);
 
     useEffect(() => {
-        if(!isLoaded){
+        if (!isLoaded) {
             setSearchParams(serializeQuery({
                 'itemPerPage': itemsPage.toString(),
                 'pageNumber': pageNumber.toString()
@@ -70,11 +70,10 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
     }, [itemsPage, pageNumber, basket]);
 
 
-
-    const changePage = (event: React.ChangeEvent<HTMLInputElement>) =>{
-        setItemsPage(isNaN(parseInt(event.currentTarget.value))?1:parseInt(event.currentTarget.value))
-        if (parseInt(event.currentTarget.value) >= basket.products.length){
-            handlePageClick({selected:0})
+    const changePage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setItemsPage(isNaN(parseInt(event.currentTarget.value)) ? 1 : parseInt(event.currentTarget.value))
+        if (parseInt(event.currentTarget.value) >= basket.products.length) {
+            handlePageClick({selected: 0})
         }
     }
 
@@ -82,32 +81,31 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
         <>
             {basket.products.length === 0 ? <div className={s.empty}><h1>Basket is empty</h1></div> :
                 <>
-                <PromoBlock basket={basket}/>
+                    <PromoBlock basket={basket}/>
                     Items per page: <input type={'number'} value={itemsPage} onChange={changePage}/>
-                <div className={s.wrapper}>
-            {currentItems.map((item, index) => (
-                <div className={s.card} key={item.key.id + item.key.rating}>
-                    id: {itemOffset+index+1}
-                <FullCard product={item.key} count={item.value}/>
-                </div>
-                ))
-            }
-                </div>
-                <ReactPaginate
-                activeClassName={`${s.item} ${s.active}`}
-                breakClassName={`${s.item} ${s.breakMe}`}
-                breakLabel={'...'}
-                containerClassName={s.pagination}
-                disabledClassName={s.disabledPage}
-                marginPagesDisplayed={2}
-                nextClassName={`${s.item} ${s.next}`}
-                onPageChange={handlePageClick}
-                pageCount={pageCount}
-                forcePage={pageNumber}
-                pageClassName={`${s.item} ${s.paginationPage}`}
-                pageRangeDisplayed={5}
-                previousClassName={`${s.item} ${s.previous}`}
-                />
+                    <div className={s.wrapper}>
+                        {currentItems.map((item, index) => (
+                            <div className={s.card} key={item.key.id + item.key.rating}>
+                                <FullCard product={item.key} count={item.value} id={itemOffset + index + 1}/>
+                            </div>
+                        ))
+                        }
+                    </div>
+                    <ReactPaginate
+                        activeClassName={`${s.item} ${s.active}`}
+                        breakClassName={`${s.item} ${s.breakMe}`}
+                        breakLabel={'...'}
+                        containerClassName={s.pagination}
+                        disabledClassName={s.disabledPage}
+                        marginPagesDisplayed={2}
+                        nextClassName={`${s.item} ${s.next}`}
+                        onPageChange={handlePageClick}
+                        pageCount={pageCount}
+                        forcePage={pageNumber}
+                        pageClassName={`${s.item} ${s.paginationPage}`}
+                        pageRangeDisplayed={5}
+                        previousClassName={`${s.item} ${s.previous}`}
+                    />
                 </>
             }
         </>

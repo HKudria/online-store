@@ -7,7 +7,7 @@ import {RootState} from '../store';
 const initialState: ProductsState = {
     products: [],
     filteredProduct: [],
-    status: 'idle',
+    status: 'loading',
     isFilter: false,
     initMaxPrice: 0,
     initMaxStock: 0,

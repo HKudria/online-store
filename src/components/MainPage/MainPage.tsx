@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSearchParams} from 'react-router-dom'
 
 import {filterProduct, getProductsState, parseProducts, sort} from '../../redux/products/productsSlice';
-import { initBasket } from '../../redux/basket/basketSlice'
+import {initBasket} from '../../redux/basket/basketSlice'
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 
 import s from './MainPage.module.css';
@@ -58,12 +58,11 @@ export const MainPage = () => {
                 }
             }
         })
-        setIsLoaded(false)
     }
 
     useEffect(() => {
-      dispatch(initBasket());
-      dispatch(parseProducts());
+        dispatch(initBasket());
+        dispatch(parseProducts());
     }, []);
 
     useEffect(() => {
@@ -71,7 +70,7 @@ export const MainPage = () => {
     }, [products.products]);
 
     useEffect(() => {
-        if(!isLoaded && products.status === 'idle'){
+        if (products.status === 'idle') {
             dispatch(
                 filterProduct({
                     categories,
@@ -81,7 +80,10 @@ export const MainPage = () => {
                     search
                 }),
             );
-          setSearchParams(serializeQuery({
+            setIsLoaded(false)
+        }
+        if (!isLoaded) {
+            setSearchParams(serializeQuery({
                 'category': categories,
                 'brand': brands,
                 price,
@@ -91,7 +93,7 @@ export const MainPage = () => {
                 search
             }))
         }
-    }, [brands, categories, price, stock, search, sortParams, viewType]);
+    }, [brands, categories, price, stock, search, sortParams, viewType, products.status]);
 
     const onChangeCategory = (category: string) => {
         if (!categories.includes(category)) {
@@ -144,7 +146,7 @@ export const MainPage = () => {
             />
             <Products
                 products={products.filteredProduct}
-                status={products.status}
+                status={isLoaded}
                 sortType={sortParams}
                 viewType={viewType}
                 onChangeSearch={setSearch}

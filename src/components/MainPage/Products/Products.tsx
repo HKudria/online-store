@@ -9,7 +9,7 @@ import {ProductCard} from './ProductCard/ProductCard';
 
 interface IProductsProps {
     products: IProduct[];
-    status: string;
+    status: boolean;
     viewType: string;
     sortType: string;
     onChangeSearch: (search: string) => void;
@@ -29,7 +29,7 @@ export const Products = ({
 
     return (
         <>
-            {status === 'loading' ?
+            {status ?
                 <div className={`${s.productsWrapper} ${s.spinner}`}>
                     <CircularProgress/>
                 </div>
