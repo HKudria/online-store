@@ -27,8 +27,6 @@ export const ProductPage = () => {
   const [product, setProduct] = useState(defaultProduct);
   const [image, setImage] = useState(products.products[+path - 1].thumbnail);
 
-  // const [productForm, setProductForm] = useState(false);
-
   const navigate = useNavigate();
   const params = { page: 'modal'};
 
@@ -78,12 +76,9 @@ export const ProductPage = () => {
         <div className={s.buttons}>
           <h3 className={s.sum}>{product[0].price} <span>$</span></h3>
           <button className={s.button}>ADD TO CARD</button>
-          {/* <NavLink to='../BasketPage'> */}
             <button
             onClick={goToBasket}
              className={s.button}>BUY NOW</button>
-          {/* </NavLink> */}
-          
         </div>
       </div>
 
