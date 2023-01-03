@@ -20,6 +20,8 @@ export const Form = () => {
 
   const [formValid, setFormValid] = useState(false);
 
+  const [completedOrder, setCompletedOrder] = useState(false);
+
   useEffect(() => {
     if ((nameError.length > 0) || (emailError.length > 0) || (phoneError.length > 0) || (addressError.length > 0)) {
       setFormValid(false);
@@ -97,8 +99,9 @@ const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
   }
 
   return (
-    <div className={s.container}>
-      <div className={s.formWrapper}>
+    <div>
+      {completedOrder && (<div className={s.modalWindow}>Order has been placed. You will be redirected to the main page in a few seconds.</div>)}
+      <div className={s.formWrapper} onClick={(e) => e.stopPropagation}>
       
       <form className={s.form}>
       <h2 className={s.title}>Personal details</h2>
@@ -142,8 +145,20 @@ const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 
       <h2 className={s.title}>Credit card details</h2>
       <PaymentForm />
-
-      <button className={s.bntSubmit} disabled={!formValid} type='submit'>Confirm</button>
+      <button
+      onClick={(e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+        setCompletedOrder(!completedOrder);
+        setTimeout(() => {
+          document.location.href = '../../MainPage';
+        }, 3000)
+      }
+         }
+       className={s.bntSubmit}
+       disabled={!formValid}
+        type='submit'>
+          Confirm
+      </button>
     </form>
     </div>
     </div>
