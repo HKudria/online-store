@@ -62,6 +62,12 @@
     font-weight: 700;
 }
 
+.empty{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .previous {
     color: black;
     border-right: solid 1px #808e9b;

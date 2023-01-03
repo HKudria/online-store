@@ -47,33 +47,34 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
     }
 
     return (
-        <>
-            {basket.products.length === 0 ? 'Basket is empty' :
-                <div>
-                    Discount list:
-                    <br></br>
-                    10%: {percent10.map(el => (el + ' '))}
-                    <br></br>
-                    20%: {percent20.map(el => (el + ' '))}
-                    <hr></hr>
-                    {renderPrice()}
-                    <hr></hr>
-                    <input
-                        name='discount'
-                        placeholder='write discount code'
-                        type='text'
-                        onChange={(event) => setDisInput(event.currentTarget.value)}
-                    />
-                    <Button name={'Apply discount'} callback={applyDiscount}/>
-                    {basket.discount.map(dis => {
-                        return (<div key={dis.key}>
-                            {dis.key}
-                            <Button name={'Drop discount'} callback={() => dispatch(removeDiscount(dis))}/>
-                        </div>)
-                    })}
-                    <Button name={'open Modal'} callback={undefined}/>
-                </div>
-            }
-        </>
+        <div>
+            Discount list:
+            <br></br>
+            10%: {percent10.map(el => (el + ' '))}
+            <br></br>
+            20%: {percent20.map(el => (el + ' '))}
+            <hr></hr>
+            {renderPrice()}
+            Total products: {basket.products.reduce((acc, prod) => {
+            acc += prod.value
+            return acc;
+        }, 0)}
+            <hr></hr>
+            <input
+                name='discount'
+                placeholder='write discount code'
+                type='text'
+                onChange={(event) => setDisInput(event.currentTarget.value)}
+            />
+            <Button name={'Apply discount'} callback={applyDiscount}/>
+            {basket.discount.map(dis => {
+                return (<div key={dis.key}>
+                    {dis.key}
+                    <Button name={'Drop discount'} callback={() => dispatch(removeDiscount(dis))}/>
+                </div>)
+            })}
+            <Button name={'open Modal'} callback={undefined}/>
+        </div>
+
     )
 }

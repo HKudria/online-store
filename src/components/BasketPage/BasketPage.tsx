@@ -31,16 +31,18 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
 
     return (
         <>
-            <PromoBlock basket={basket}/>
-            <div className={s.wrapper}>
-                {currentItems.map((item) => (
-                    <div className={s.card} key={item.key.id + item.key.rating}>
-                        <FullCard product={item.key} count={item.value}/>
-                    </div>
+            {basket.products.length === 0 ? <div className={s.empty}><h1>Basket is empty</h1></div> :
+                <>
+                <PromoBlock basket={basket}/>
+                <div className={s.wrapper}>
+            {currentItems.map((item) => (
+                <div className={s.card} key={item.key.id + item.key.rating}>
+                <FullCard product={item.key} count={item.value}/>
+                </div>
                 ))
-                }
-            </div>
-            <ReactPaginate
+            }
+                </div>
+                <ReactPaginate
                 activeClassName={`${s.item} ${s.active}`}
                 breakClassName={`${s.item} ${s.breakMe}`}
                 breakLabel={'...'}
@@ -54,7 +56,9 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
                 pageRangeDisplayed={5}
                 previousClassName={`${s.item} ${s.previous}`}
                 renderOnZeroPageCount={undefined}
-            />
+                />
+                </>
+            }
         </>
     );
 }
