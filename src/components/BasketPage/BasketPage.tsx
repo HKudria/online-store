@@ -12,6 +12,7 @@ interface IBasketProps {
 
 export const BasketPage = ({itemsPerPage}: IBasketProps) => {
     const dispatch = useAppDispatch();
+    const [itemsPage, setItemsPage] = useState<number>(itemsPerPage ?? 0)
 
     useEffect(() => {
         dispatch(initBasket());
@@ -20,20 +21,28 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
     const basket = useAppSelector(getBasketState);
 
     const [itemOffset, setItemOffset] = useState(0);
-    const endOffset = itemOffset + itemsPerPage;
+    const endOffset = itemOffset + itemsPage;
     const currentItems = basket.products.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(basket.products.length / itemsPerPage);
+    const pageCount = Math.ceil(basket.products.length / itemsPage);
 
     const handlePageClick = (event: { selected: number; }) => {
-        const newOffset = (event.selected * itemsPerPage) % basket.products.length;
+        const newOffset = (event.selected * itemsPage) % basket.products.length;
         setItemOffset(newOffset);
     };
+
+    const changePage = (event: React.ChangeEvent<HTMLInputElement>) =>{
+        setItemsPage(isNaN(parseInt(event.currentTarget.value))?1:parseInt(event.currentTarget.value))
+        if (parseInt(event.currentTarget.value) >= basket.products.length){
+            handlePageClick({selected:0})
+        }
+    }
 
     return (
         <>
             {basket.products.length === 0 ? <div className={s.empty}><h1>Basket is empty</h1></div> :
                 <>
                 <PromoBlock basket={basket}/>
+                    Items per page: <input type={'number'} value={itemsPage} onChange={changePage}/>
                 <div className={s.wrapper}>
             {currentItems.map((item) => (
                 <div className={s.card} key={item.key.id + item.key.rating}>
