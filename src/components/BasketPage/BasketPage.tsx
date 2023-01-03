@@ -24,6 +24,7 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
     const endOffset = itemOffset + itemsPage;
     const currentItems = basket.products.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(basket.products.length / itemsPage);
+    console.log(itemOffset)
 
     const handlePageClick = (event: { selected: number; }) => {
         const newOffset = (event.selected * itemsPage) % basket.products.length;
@@ -44,8 +45,9 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
                 <PromoBlock basket={basket}/>
                     Items per page: <input type={'number'} value={itemsPage} onChange={changePage}/>
                 <div className={s.wrapper}>
-            {currentItems.map((item) => (
+            {currentItems.map((item, index) => (
                 <div className={s.card} key={item.key.id + item.key.rating}>
+                    id: {itemOffset+index+1}
                 <FullCard product={item.key} count={item.value}/>
                 </div>
                 ))
