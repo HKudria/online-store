@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
+import {ProductsState} from '../../../redux/products/ProductInterface';
+
 import s from './Filters.module.css';
 import { Button } from './Button/Button';
 import { FilterBlock } from './FilterBlock/FilterBlock';
 import { RangeBlock } from './RangeBlock/RangeBlock';
-
-import { ProductsState } from '../../../redux/products/productsSlice';
 
 interface IFiltersInterface {
   store: ProductsState;

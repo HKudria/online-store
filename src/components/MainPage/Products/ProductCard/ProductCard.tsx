@@ -5,11 +5,9 @@ import {IProduct} from '../../../../redux/products/ProductInterface';
 import {useAppDispatch, useAppSelector} from '../../../../redux/hooks';
 import {addToBasket, getBasketState, removeFromBasket} from '../../../../redux/basket/basketSlice';
 
-import {ProductsCardSizeEnum} from '../Products';
+import {ProductsCardSizeEnum} from '../../MainPage';
 import {FullCard} from './FullCard/FullCard';
 import {SmallCard} from './SmallCard/SmallCard';
-
-
 
 interface IProductCardInterface {
     product: IProduct;

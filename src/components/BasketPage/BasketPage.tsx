@@ -1,12 +1,15 @@
-import s from './BasketPage.module.css';
 import React, {useEffect, useState} from 'react';
+import {useSearchParams} from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {getBasketState, initBasket} from '../../redux/basket/basketSlice';
+
 import {FullCard} from '../MainPage/Products/ProductCard/FullCard/FullCard';
-import {PromoBlock} from './PromoBlock/PromoBlock';
 import {serializeQuery, useQuery} from '../Helper/QueryParser';
-import {useSearchParams} from 'react-router-dom';
+
+import {PromoBlock} from './PromoBlock/PromoBlock';
+import s from './BasketPage.module.css';
 
 interface IBasketProps {
     itemsPerPage: number

@@ -4,27 +4,7 @@ import {IProduct} from '../products/ProductInterface';
 
 import {RootState} from '../store';
 
-export interface IBasketProduct {
-    key: IProduct
-    value: number
-}
-
-export interface IDiscount {
-    key: string
-    value: number
-}
-
-interface IRemoveAction {
-    product: IProduct
-    isMainPage?: boolean
-}
-
-export interface BasketState {
-    products: IBasketProduct[];
-    discount: IDiscount[];
-    totalAmount: number;
-    discountAmount: number;
-}
+import {BasketState, IDiscount, IRemoveAction} from './BasketInterface';
 
 const initialState: BasketState = {
     products: [],

@@ -21,7 +21,7 @@ export const RangeBlock = ({ title, from, to, onChange, initMax }: IRangeProps) 
           {isFinite(to) ? to : initMax} | {initMax}
         </p>
       </div>
-      <div className={s.rangeSliderWrapper}>{RangeSlider(from, to, onChange, initMax)}</div>
+      <div className={s.rangeSliderWrapper}><RangeSlider min={from} max={to} onChange={onChange} initMax={initMax}/></div>
     </div>
   );
 };

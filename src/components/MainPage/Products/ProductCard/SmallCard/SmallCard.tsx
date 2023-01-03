@@ -15,7 +15,6 @@ interface IProductCardInterface {
 }
 
 export const SmallCard: React.FC<IProductCardInterface> = ({product, isAdded, callback}: IProductCardInterface) => {
-
     return (
         <>
             <Card sx={{ display: 'flex', height: 150, width: 400 }}>

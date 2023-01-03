@@ -1,7 +1,9 @@
-import {addDiscount, BasketState, IDiscount, removeDiscount} from '../../../redux/basket/basketSlice';
-import {Button} from '../../MainPage/Filters/Button/Button';
 import {useState} from 'react';
+
+import {addDiscount, removeDiscount} from '../../../redux/basket/basketSlice';
+import {BasketState, IDiscount} from '../../../redux/basket/BasketInterface';
 import {useAppDispatch} from '../../../redux/hooks';
+import {Button} from '../../MainPage/Filters/Button/Button';
 
 interface IPromoBlockProps {
     basket: BasketState

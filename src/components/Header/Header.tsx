@@ -1,11 +1,12 @@
-import s from './Header.module.css';
-import { Basket } from './Basket/Basket';
+import {useEffect, useState} from 'react';
 import { NavLink } from 'react-router-dom';
 
-import logo from '../../assets/image/logo.png';
 import {useAppSelector} from '../../redux/hooks';
 import {getBasketState} from '../../redux/basket/basketSlice';
-import {useEffect, useState} from 'react';
+import logo from '../../assets/image/logo.png';
+
+import { Basket } from './Basket/Basket';
+import s from './Header.module.css';
 
 export const Header = () => {
     const basket = useAppSelector(getBasketState);

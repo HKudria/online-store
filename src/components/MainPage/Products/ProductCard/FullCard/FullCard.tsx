@@ -16,9 +16,10 @@ interface IProductCardInterface {
     isAdded?: boolean;
     callback?: (e: React.MouseEvent) => void;
     count?: number
+    id?: number
 }
 
-export const FullCard: React.FC<IProductCardInterface> = ({product, isAdded, callback, count}: IProductCardInterface) => {
+export const FullCard: React.FC<IProductCardInterface> = ({product, isAdded, callback, count, id}: IProductCardInterface) => {
 
     return (
         <>
@@ -41,6 +42,7 @@ export const FullCard: React.FC<IProductCardInterface> = ({product, isAdded, cal
                                 alignItems: 'center',
                             }}
                         >
+                            {id ? <Box sx={{ml: 2}} color='blue'>ID: {product.rating}</Box> : ''}
                             <Rating name='read-only' value={product.rating} precision={0.1} readOnly/>
                             <Box sx={{ml: 2}}>{product.rating}</Box>
                         </Box>

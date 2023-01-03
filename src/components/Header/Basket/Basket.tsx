@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import s from './Basket.module.css';
 
 import basket from '../../../assets/image/basket.png';
+
+import s from './Basket.module.css';
 
 interface IBasketProps{
     count: number
