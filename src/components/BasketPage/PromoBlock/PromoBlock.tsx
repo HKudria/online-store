@@ -26,6 +26,7 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
             dis.key = disInput
         }
         dispatch(addDiscount(dis))
+        setDisInput('')
     }
 
     const renderPrice = () => {
@@ -64,6 +65,7 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
                 name='discount'
                 placeholder='write discount code'
                 type='text'
+                value={disInput}
                 onChange={(event) => setDisInput(event.currentTarget.value)}
             />
             <Button name={'Apply discount'} callback={applyDiscount}/>
