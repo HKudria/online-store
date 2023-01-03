@@ -26,10 +26,10 @@ export const MainPage = () => {
     const [viewType, setViewType] = useState<string>(ProductsCardSizeEnum.Full);
     const [search, setSearch] = useState<string>('');
     const [sortParams, setSortParams] = useState<string>('');
+    const [isLoaded, setIsLoaded] = useState<boolean>(true)
     const query = useQuery()
 
-    const deserializeQuery = async (params: string[]) => {
-        await dispatch(parseProducts());
+    const deserializeQuery = (params: string[]) => {
         params.forEach((key) => {
             const data = query.get(key)
             if (data !== null && data.length > 0) {
@@ -58,32 +58,39 @@ export const MainPage = () => {
                 }
             }
         })
+        setIsLoaded(false)
     }
 
     useEffect(() => {
       dispatch(initBasket());
-        deserializeQuery(['category', 'brand', 'price', 'stock', 'view', 'search', 'sort'])
+      dispatch(parseProducts());
     }, []);
 
     useEffect(() => {
-        dispatch(
-            filterProduct({
-                categories,
-                brands,
+        deserializeQuery(['category', 'brand', 'price', 'stock', 'view', 'search', 'sort'])
+    }, [products.products]);
+
+    useEffect(() => {
+        if(!isLoaded && products.status === 'idle'){
+            dispatch(
+                filterProduct({
+                    categories,
+                    brands,
+                    price,
+                    stock,
+                    search
+                }),
+            );
+          setSearchParams(serializeQuery({
+                'category': categories,
+                'brand': brands,
                 price,
                 stock,
+                'sort': sortParams,
+                'view': viewType,
                 search
-            }),
-        );
-        setSearchParams(serializeQuery({
-            'category': categories,
-            'brand': brands,
-            price,
-            stock,
-            'sort': sortParams,
-            'view': viewType,
-            search
-        }))
+            }))
+        }
     }, [brands, categories, price, stock, search, sortParams, viewType]);
 
     const onChangeCategory = (category: string) => {

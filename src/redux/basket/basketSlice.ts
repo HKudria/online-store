@@ -1,4 +1,4 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {IProduct} from '../products/ProductInterface';
 
@@ -34,11 +34,10 @@ const initialState: BasketState = {
 };
 
 const totalAmount = (state: BasketState) => {
-    const result = state.totalAmount = state.products.reduce((acc: number, item) => {
+    return state.totalAmount = state.products.reduce((acc: number, item) => {
         acc += item.key.price * item.value
         return acc
     }, 0)
-    return result
 }
 
 const checkIfDiscountWasUsed = (state: BasketState, discount: string) => {

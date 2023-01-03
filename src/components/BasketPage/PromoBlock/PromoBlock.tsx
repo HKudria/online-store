@@ -13,6 +13,7 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
     const [disInput, setDisInput] = useState<string>('')
     const dispatch = useAppDispatch();
 
+
     const applyDiscount = () => {
         const dis: IDiscount = {
             key: 'unknown',
