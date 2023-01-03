@@ -28,6 +28,8 @@ export const Products = ({ products, status, viewType, onChangeSearch, onChangeV
     );
   }
 
+  // зачем отдельная функция здесь ? просто эту разметку в рендере вставить
+
   const notFoundMessage = () => {
       return (
           <div><h1>Products not found</h1></div>

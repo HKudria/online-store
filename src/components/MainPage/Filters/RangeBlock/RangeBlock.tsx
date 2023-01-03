@@ -21,6 +21,7 @@ export const RangeBlock = ({ title, from, to, onChange, initMax }: IRangeProps) 
           {isFinite(to) ? to : initMax} | {initMax}
         </p>
       </div>
+      {/* почему здесь RangeSlider вызывается как простая функция если это компонент ? */}
       <div className={s.rangeSliderWrapper}>{RangeSlider(from, to, onChange, initMax)}</div>
     </div>
   );

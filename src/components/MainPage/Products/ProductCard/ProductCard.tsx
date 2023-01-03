@@ -21,6 +21,7 @@ export const ProductCard: React.FC<IProductCardInterface> = ({
 }: IProductCardInterface) => {
   return (
     <>
+    {/* лучше использовать шаблонную строку */}
     <NavLink to={'/ProductPage/'+String(product.id)}>
     <Card sx={{ maxWidth: 345, width: '100%', height: 460 }}>
         <CardActionArea>
@@ -32,6 +33,7 @@ export const ProductCard: React.FC<IProductCardInterface> = ({
           />
           <CardContent sx={{ height: 220 }}>
             <Typography gutterBottom variant='h5' component='div'>
+              {/* можно сделать отдельную функцию в хелперах для обрезки строк (т.к. не в одном месте это используете) */}
               {product.title.length > 25 ? product.title.substring(0, 24) + '...' : product.title}
             </Typography>
             <Box

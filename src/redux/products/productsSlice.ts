@@ -4,6 +4,8 @@ import {IProduct} from './ProductInterface';
 
 import {RootState} from '../store';
 
+// рядом лежит отдельный файл под интерфейсы, почему они здесь храняться ?
+// нужно выбрать что то одно
 export interface ProductsState {
     products: IProduct[] | [];
     filteredProduct: IProduct[] | [];
