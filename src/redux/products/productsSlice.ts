@@ -1,39 +1,13 @@
 import {PayloadAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import {IProduct} from './ProductInterface';
+import {IFilter, IProduct, ISort, ProductsState} from './ProductInterface';
 
 import {RootState} from '../store';
-
-export interface ProductsState {
-    products: IProduct[] | [];
-    filteredProduct: IProduct[] | [];
-    status: 'idle' | 'loading' | 'failed';
-    isFilter: boolean;
-    initMaxPrice: number;
-    initMaxStock: number;
-    minPrice: number;
-    maxPrice: number;
-    minStock: number;
-    maxStock: number;
-}
-
-interface ISort {
-    type: string;
-    action: 'price' | 'rating' | 'discountPercentage';
-}
-
-interface IFilter {
-    categories: string[];
-    brands: string[];
-    price: number[];
-    stock: number[];
-    search: string
-}
 
 const initialState: ProductsState = {
     products: [],
     filteredProduct: [],
-    status: 'idle',
+    status: 'loading',
     isFilter: false,
     initMaxPrice: 0,
     initMaxStock: 0,

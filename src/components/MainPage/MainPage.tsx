@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSearchParams} from 'react-router-dom'
 
 import {filterProduct, getProductsState, parseProducts, sort} from '../../redux/products/productsSlice';
+import {initBasket} from '../../redux/basket/basketSlice'
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 
 import s from './MainPage.module.css';
@@ -25,10 +26,10 @@ export const MainPage = () => {
     const [viewType, setViewType] = useState<string>(ProductsCardSizeEnum.Full);
     const [search, setSearch] = useState<string>('');
     const [sortParams, setSortParams] = useState<string>('');
+    const [isLoaded, setIsLoaded] = useState<boolean>(true)
     const query = useQuery()
 
-    const deserializeQuery = async (params: string[]) => {
-        await dispatch(parseProducts());
+    const deserializeQuery = (params: string[]) => {
         params.forEach((key) => {
             const data = query.get(key)
             if (data !== null && data.length > 0) {
@@ -60,29 +61,39 @@ export const MainPage = () => {
     }
 
     useEffect(() => {
-        deserializeQuery(['category', 'brand', 'price', 'stock', 'view', 'search', 'sort'])
+        dispatch(initBasket());
+        dispatch(parseProducts());
     }, []);
 
     useEffect(() => {
-        dispatch(
-            filterProduct({
-                categories,
-                brands,
+        deserializeQuery(['category', 'brand', 'price', 'stock', 'view', 'search', 'sort'])
+    }, [products.products]);
+
+    useEffect(() => {
+        if (products.status === 'idle') {
+            dispatch(
+                filterProduct({
+                    categories,
+                    brands,
+                    price,
+                    stock,
+                    search
+                }),
+            );
+            setIsLoaded(false)
+        }
+        if (!isLoaded) {
+            setSearchParams(serializeQuery({
+                'category': categories,
+                'brand': brands,
                 price,
                 stock,
+                'sort': sortParams,
+                'view': viewType,
                 search
-            }),
-        );
-        setSearchParams(serializeQuery({
-            'category': categories,
-            'brand': brands,
-            price,
-            stock,
-            'sort': sortParams,
-            'view': viewType,
-            search
-        }))
-    }, [brands, categories, price, stock, search, sortParams, viewType]);
+            }))
+        }
+    }, [brands, categories, price, stock, search, sortParams, viewType, products.status]);
 
     const onChangeCategory = (category: string) => {
         if (!categories.includes(category)) {
@@ -135,7 +146,7 @@ export const MainPage = () => {
             />
             <Products
                 products={products.filteredProduct}
-                status={products.status}
+                status={isLoaded}
                 sortType={sortParams}
                 viewType={viewType}
                 onChangeSearch={setSearch}

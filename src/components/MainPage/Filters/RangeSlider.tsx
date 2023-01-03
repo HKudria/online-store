@@ -2,16 +2,18 @@ import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
+interface IRangeSliderProps {
+  min: number,
+  max: number,
+  onChange: (number: number[]) => void,
+  initMax: number
+}
+
 function valuetext(value: number) {
   return `${value}`;
 }
 
-export function RangeSlider(
-  min: number,
-  max: number,
-  onChange: (number: number[]) => void,
-  initMax: number,
-) {
+export function RangeSlider({ min, max, onChange, initMax} : IRangeSliderProps) {
   const [value, setValue] = useState<number[]>([min, max]);
 
   useEffect(() => {
