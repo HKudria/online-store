@@ -7,9 +7,9 @@ interface IPromoBlockProps {
     basket: BasketState
 }
 
-export const PromoBlock = ({basket}:IPromoBlockProps) => {
-    const percent10 = ['ten1','ten2','ten3'];
-    const percent20 = ['twenty','twenty1','twenty2'];
+export const PromoBlock = ({basket}: IPromoBlockProps) => {
+    const percent10 = ['ten1', 'ten2', 'ten3'];
+    const percent20 = ['twenty', 'twenty1', 'twenty2'];
     const [disInput, setDisInput] = useState<string>('')
     const dispatch = useAppDispatch();
 
@@ -18,18 +18,18 @@ export const PromoBlock = ({basket}:IPromoBlockProps) => {
             key: 'unknown',
             value: 0
         }
-        if(percent10.includes(disInput)){
+        if (percent10.includes(disInput)) {
             dis.value = 10
             dis.key = disInput
-        } else if(percent20.includes(disInput)){
+        } else if (percent20.includes(disInput)) {
             dis.value = 20
             dis.key = disInput
         }
         dispatch(addDiscount(dis))
     }
 
-    const renderPrice = () =>{
-        if(basket.discount.length !== 0){
+    const renderPrice = () => {
+        if (basket.discount.length !== 0) {
             return (
                 <div>
                     Total amount :
@@ -38,37 +38,42 @@ export const PromoBlock = ({basket}:IPromoBlockProps) => {
             )
         } else {
             return (
-            <div>
-                Total amount :
-                <b>{basket.totalAmount}</b>
-            </div>
+                <div>
+                    Total amount :
+                    <b>{basket.totalAmount}</b>
+                </div>
             )
         }
     }
 
     return (
         <>
-            Discount list:
-            <br></br>
-            10%: {percent10.map(el => (el + ' '))}
-            <br></br>
-            20%: {percent20.map(el => (el + ' '))}
-            <hr></hr>
-         {renderPrice()}
-            <hr></hr>
-            <input
-                name='discount'
-                placeholder='write discount code'
-                type='text'
-                onChange={(event)=>setDisInput(event.currentTarget.value)}
-            />
-            <Button name={'Apply discount'} callback={applyDiscount}/>
-            {basket.discount.map(dis => {
-               return(<div key={dis.key}>
-                   {dis.key}
-                   <Button name={'Drop discount'} callback={() => dispatch(removeDiscount(dis))} />
-               </div>)
-            })}
+            {basket.products.length === 0 ? 'Basket is empty' :
+                <div>
+                    Discount list:
+                    <br></br>
+                    10%: {percent10.map(el => (el + ' '))}
+                    <br></br>
+                    20%: {percent20.map(el => (el + ' '))}
+                    <hr></hr>
+                    {renderPrice()}
+                    <hr></hr>
+                    <input
+                        name='discount'
+                        placeholder='write discount code'
+                        type='text'
+                        onChange={(event) => setDisInput(event.currentTarget.value)}
+                    />
+                    <Button name={'Apply discount'} callback={applyDiscount}/>
+                    {basket.discount.map(dis => {
+                        return (<div key={dis.key}>
+                            {dis.key}
+                            <Button name={'Drop discount'} callback={() => dispatch(removeDiscount(dis))}/>
+                        </div>)
+                    })}
+                    <Button name={'open Modal'} callback={undefined}/>
+                </div>
+            }
         </>
     )
 }
