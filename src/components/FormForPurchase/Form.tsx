@@ -2,6 +2,7 @@ import s from './Form.module.css';
 import { useState, useEffect } from 'react';
 import PaymentForm from './CreditCard/CreditCard';
 import { useNavigate } from 'react-router-dom';
+import close from '../../assets/image/close.png';
 
 export const Form = () => {
   const [email, setEmail] = useState<string>('');
@@ -22,6 +23,8 @@ export const Form = () => {
   const [formValid, setFormValid] = useState(false);
 
   const [completedOrder, setCompletedOrder] = useState(false);
+  const [modalWindow, setModalWindow] = useState(true);
+
 
   const navigate = useNavigate();
   
@@ -103,13 +106,18 @@ const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
   }
 
   return (
-    <div className={s.container}>
+    <div className={modalWindow ? s.container : s.containerNotActive}>
       {completedOrder && (<div className={s.modalWindow}>Order has been placed. You will be redirected to the main page in a few seconds.</div>)}
-
-      <div 
+      
+      <div
       className={s.formWrapper}
       onClick={(e) => e.stopPropagation}>
-      
+
+      <img src={close}
+       className={s.close}
+       onClick={() => setModalWindow(false)}
+       />
+
       <form className={s.form}>
       <h2 className={s.title}>Personal details</h2>
       {(nameDirty && (nameError.length > 0)) && <div className={s.error}>{nameError}</div>}

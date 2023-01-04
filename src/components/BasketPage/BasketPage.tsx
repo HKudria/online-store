@@ -10,6 +10,7 @@ import {serializeQuery, useQuery} from '../Helper/QueryParser';
 
 import {PromoBlock} from './PromoBlock/PromoBlock';
 import s from './BasketPage.module.css';
+import { Form } from '../FormForPurchase/Form';
 
 interface IBasketProps {
     itemsPerPage: number
@@ -27,6 +28,9 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
     const endOffset = itemOffset + itemsPage;
     const currentItems = basket.products.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(basket.products.length / itemsPage);
+    const parameter = window.location.href.slice(window.location.href.indexOf('=') + 1);
+
+    
 
 
     const handlePageClick = (event: { selected: number; }) => {
@@ -77,11 +81,39 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
         }
     }
 
-export const BasketPage = () => {
-  return (
-    <div>
-      Basket Page
-    </div>
-  )
+    return (
+        <>
+            { parameter === 'modal' && <Form /> }
+            {basket.products.length === 0 ? <div className={s.empty}><h1>Basket is empty</h1></div> :
+                <>
+                    <PromoBlock basket={basket}/>
+                    Items per page: <input type={'number'} value={itemsPage} onChange={changePage}/>
+                    <div className={s.wrapper}>
+                        {currentItems.map((item, index) => (
+                            <div className={s.card} key={item.key.id + item.key.rating}>
+                                <FullCard product={item.key} count={item.value} id={itemOffset + index + 1}/>
+                            </div>
+                        ))
+                        }
+                    </div>
+                    <ReactPaginate
+                        activeClassName={`${s.item} ${s.active}`}
+                        breakClassName={`${s.item} ${s.breakMe}`}
+                        breakLabel={'...'}
+                        containerClassName={s.pagination}
+                        disabledClassName={s.disabledPage}
+                        marginPagesDisplayed={2}
+                        nextClassName={`${s.item} ${s.next}`}
+                        onPageChange={handlePageClick}
+                        pageCount={pageCount}
+                        forcePage={pageNumber}
+                        pageClassName={`${s.item} ${s.paginationPage}`}
+                        pageRangeDisplayed={5}
+                        previousClassName={`${s.item} ${s.previous}`}
+                    />
+                </>
+            }
+        </>
+    );
 }
 

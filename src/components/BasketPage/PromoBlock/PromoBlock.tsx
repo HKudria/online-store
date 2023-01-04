@@ -4,6 +4,7 @@ import {addDiscount, removeDiscount} from '../../../redux/basket/basketSlice';
 import {BasketState, IDiscount} from '../../../redux/basket/BasketInterface';
 import {useAppDispatch} from '../../../redux/hooks';
 import {Button} from '../../MainPage/Filters/Button/Button';
+import { Form } from '../../FormForPurchase/Form';
 
 interface IPromoBlockProps {
     basket: BasketState
@@ -14,6 +15,11 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
     const percent20 = ['twenty', 'twenty1', 'twenty2'];
     const [disInput, setDisInput] = useState<string>('')
     const dispatch = useAppDispatch();
+    const [show, setShow] = useState(false);
+    
+    const showModal = () => {
+        setShow(true);
+    }
 
 
     const applyDiscount = () => {
@@ -52,6 +58,7 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
 
     return (
         <div>
+            {show && <Form />}
             Discount list:
             <br></br>
             10%: {percent10.map(el => (el + ' '))}
@@ -78,7 +85,14 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
                     <Button name={'Drop discount'} callback={() => dispatch(removeDiscount(dis))}/>
                 </div>)
             })}
-            <Button name={'open Modal'} callback={undefined}/>
+            <button onClick={() => {
+                if (show) {
+                    setShow(false);
+                } else {
+                    setShow(true)
+                }
+            }}>Open modal</button>
+            {/* <Button onClick={() => showModal} name={'open Modal'} callback={undefined}/> */}
         </div>
 
     )

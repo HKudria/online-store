@@ -5,7 +5,12 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 2;
   /* transform: scale(0); */
+}
+
+.containerNotActive {
+  display: none;
 }
 
 .container.active {
@@ -22,6 +27,8 @@
   top: 50%;
   transform: translate(-50%, -50%);
   left: 50%;
+  position: relative;
+  z-index: 6;
 }
 
 .form {
@@ -65,6 +72,15 @@
   background-color: grey;
   color: black;
   font-size: 40px;
-  z-index: 2;
+  z-index: 8;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  z-index: 8;
 }
 

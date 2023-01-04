@@ -3,11 +3,15 @@ import { useEffect, useState } from 'react';
 import { IProduct } from '../../redux/products/ProductInterface';
 import { createSearchParams, NavLink, useNavigate } from 'react-router-dom';
 import products from '../../data.json';
+import {getBasketState, addToBasket, removeFromBasket} from '../../redux/basket/basketSlice';
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 
 
 export const ProductPage = () => {
   const routeList = location.pathname.split('/');
   const path = routeList[routeList.length - 1];
+  const basket = useAppSelector(getBasketState);
+  const dispatch = useAppDispatch();
   
   const defaultProduct: IProduct[] = [{
     id: 0,
@@ -30,12 +34,36 @@ export const ProductPage = () => {
   const navigate = useNavigate();
   const params = { page: 'modal'};
 
-  const goToBasket = () =>
-    navigate({
+  const goToBasket = () => {
+    const currentProduct = basket.products.find(item => item.key.id === +path);
+    const newProduct = products.products.filter((item) => item.id === +path);
+     if (!currentProduct) {
+      dispatch(addToBasket(newProduct[0]))
+     }
+     navigate({
       pathname: '../BasketPage',
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       search: `?${createSearchParams(params)}`,
     });
+  }
+
+  const addTextToBtn = () => {
+    const productInBasket = basket.products.find(item => item.key.id === +path);
+     if (productInBasket) {
+      return true;
+    } return false;
+  }
+
+  const addProductInBasket = () => {
+    const newProduct = products.products.filter((item) => item.id === +path);
+    const isProductInBasket = addTextToBtn();
+    if (isProductInBasket) {
+      dispatch(removeFromBasket({product: newProduct[0]}));
+    } else {
+      dispatch(addToBasket(newProduct[0]));
+    }
+  }
+    
 
 
   
@@ -75,7 +103,11 @@ export const ProductPage = () => {
         </div>
         <div className={s.buttons}>
           <h3 className={s.sum}>{product[0].price} <span>$</span></h3>
-          <button className={s.button}>ADD TO CARD</button>
+          <button
+          onClick={addProductInBasket}
+           className={s.button}
+           >{ addTextToBtn() ? 'Drop from card' : 'Add to card' }
+           </button>
             <button
             onClick={goToBasket}
              className={s.button}>BUY NOW</button>
