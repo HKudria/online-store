@@ -5,6 +5,7 @@ import { createSearchParams, NavLink, useNavigate } from 'react-router-dom';
 import products from '../../data.json';
 import {getBasketState, addToBasket, removeFromBasket} from '../../redux/basket/basketSlice';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import arrow from '../../assets/image/arrow.png';
 
 
 export const ProductPage = () => {
@@ -65,8 +66,6 @@ export const ProductPage = () => {
   }
     
 
-
-  
   useEffect(() => {
     const currentProduct = products.products.filter((item: IProduct) => item.id === +path);
      setProduct(currentProduct);
@@ -76,11 +75,11 @@ export const ProductPage = () => {
     <div className={s.wrapper}>
       <div className={s.breadCrumbs}>
         <NavLink to='/' className={s.breadCrumbsItem}>Store</NavLink>
-        <p className={s.breadCrumbsItem}>---</p>
+        <img className={s.arrow} src={arrow} />
         <p className={s.breadCrumbsItem}>{product[0].category}</p>
-        <p className={s.breadCrumbsItem}>---</p>
+        <img className={s.arrow} src={arrow} />
         <p className={s.breadCrumbsItem}>{product[0].brand}</p>
-        <p className={s.breadCrumbsItem}>---</p>
+        <img className={s.arrow} src={arrow} />
         <p className={s.breadCrumbsItem}>{product[0].title}</p>
       </div>
       <div className={s.productName}>{product[0].title}</div>
@@ -110,7 +109,7 @@ export const ProductPage = () => {
            </button>
             <button
             onClick={goToBasket}
-             className={s.button}>BUY NOW</button>
+             className={s.button}>Buy now</button>
         </div>
       </div>
 

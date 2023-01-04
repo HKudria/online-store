@@ -1,9 +1,10 @@
 .box {
   width: 90%;
-  background-color: azure;
+  background-color: white;
   margin-left: 20px;
   border-radius: 5px;
   margin-top: 30px;
+  border: 1px solid #E7F0FF;
 }
 
 .checkboxField {
@@ -13,4 +14,20 @@
 
 .amount {
   padding-left: 20%;
+}
+
+.title {
+  text-align: center;
+  padding: 10px 0;
+  background-color: #E7F0FF;
+  color: rgb(20, 19, 19);
+  margin-top: 0;
+  border-radius: 5px;
+  font-weight: 400;
+}
+
+.filterListItem {
+  font-size: 20px;
+  color: rgb(20, 19, 19);
+  padding-top: 5px;
 }

@@ -23,7 +23,7 @@ export const ProductsHeader = ({count, sort, view, filter, sortType}: IProductHe
 
     return (
         <div className={s.headersWrapper}>
-            <select onChange={(value) => sort(value.currentTarget.value)} id='sortSelect'>
+            <select className={s.sorting} onChange={(value) => sort(value.currentTarget.value)} id='sortSelect'>
                 <option>Select sort options</option>
                 <option value='asc↑price'>Sort by price ASC</option>
                 <option value='desc↑price'>Sort by price DESC</option>
@@ -32,10 +32,11 @@ export const ProductsHeader = ({count, sort, view, filter, sortType}: IProductHe
                 <option value='asc↑discountPercentage'>Sort by Discount ASC</option>
                 <option value='desc↑discountPercentage'>Sort by discount DESC</option>
             </select>
-            <p>
-                Found:<span>{count}</span>
+            <p className={s.found}>
+                Found: <span>{count}</span>
             </p>
             <input
+                className={s.sorting}
                 name='s'
                 placeholder='Search product'
                 type='search'

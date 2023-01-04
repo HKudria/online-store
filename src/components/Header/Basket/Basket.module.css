@@ -10,14 +10,14 @@
 }
 
 .amount {
-  width: 20px;
+  width: 30px;
   height: 20px;
-  background-color: white;
-  border: 1px solid #696969;
-  border-radius: 50%;
+  background-color: #4C85D6;
+  border-radius: 30%;
   text-align: center;
-  color: #696969;
+  color: white;
+  font-weight: bold;
   position: absolute;
-  top: 20px;
-  left: 25px;
+  top: 40px;
+  left: 37px;
 }

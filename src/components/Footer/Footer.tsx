@@ -10,9 +10,9 @@ export const Footer = () => {
         <img src={rsLogo} alt='rs-logo' className={s.rsLogo} />
       </a>
       <div className={s.footerYear}>
-        <p className=''>2022</p>
+        <p className={s.year}>2023</p>
       </div>
-      <div>
+      <div className={s.githubsWrapper}>
         <a href='https://github.com/AnyaPolischuk' className={s.footerGithub}>
           <img src={github} alt='github-logo' className={s.footerGithub} />
         </a>

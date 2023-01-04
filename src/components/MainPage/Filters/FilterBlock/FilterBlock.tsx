@@ -10,7 +10,7 @@ interface IFilterProps {
 export const FilterBlock = ({ title, data, onChangeFn, selected }: IFilterProps) => {
   return (
     <div className={s.box}>
-      <h2>{title}</h2>
+      <h2 className={s.title}>{title}</h2>
       <div className={s.checkboxField}>
         <div className={s.filterList}>
           {data.map((element, index) => (

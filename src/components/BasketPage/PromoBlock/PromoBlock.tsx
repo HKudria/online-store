@@ -5,6 +5,7 @@ import {BasketState, IDiscount} from '../../../redux/basket/BasketInterface';
 import {useAppDispatch} from '../../../redux/hooks';
 import {Button} from '../../MainPage/Filters/Button/Button';
 import { Form } from '../../FormForPurchase/Form';
+import s from './PromoBlock.module.css';
 
 interface IPromoBlockProps {
     basket: BasketState
@@ -17,11 +18,6 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
     const dispatch = useAppDispatch();
     const [show, setShow] = useState(false);
     
-    const showModal = () => {
-        setShow(true);
-    }
-
-
     const applyDiscount = () => {
         const dis: IDiscount = {
             key: 'unknown',
@@ -42,14 +38,14 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
         if (basket.discount.length !== 0) {
             return (
                 <div>
-                    Total amount :
+                    Products: 
                     <s>{basket.totalAmount}</s> -- <b>{basket.discountAmount}</b>
                 </div>
             )
         } else {
             return (
                 <div>
-                    Total amount :
+                    Total: 
                     <b>{basket.totalAmount}</b>
                 </div>
             )
@@ -57,23 +53,26 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
     }
 
     return (
-        <div>
+        <div className={s.wrapper}>
             {show && <Form />}
-            Discount list:
-            <br></br>
-            10%: {percent10.map(el => (el + ' '))}
-            <br></br>
-            20%: {percent20.map(el => (el + ' '))}
-            <hr></hr>
-            {renderPrice()}
-            Total products: {basket.products.reduce((acc, prod) => {
-            acc += prod.value
-            return acc;
-        }, 0)}
-            <hr></hr>
+            <h2 className={s.title}>Summary</h2>
+            <div className={s.discounts}>
+                Discount list:
+                <br></br>
+                10%: {percent10.map(el => (el + ' '))}
+                <br></br>
+                20%: {percent20.map(el => (el + ' '))}
+                {renderPrice()}
+                Total products: {basket.products.reduce((acc, prod) => {
+                acc += prod.value
+                return acc;
+            }, 0)}
+            </div>
+           
+          
             <input
                 name='discount'
-                placeholder='write discount code'
+                placeholder='enter promo code'
                 type='text'
                 value={disInput}
                 onChange={(event) => setDisInput(event.currentTarget.value)}
@@ -91,8 +90,7 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
                 } else {
                     setShow(true)
                 }
-            }}>Open modal</button>
-            {/* <Button onClick={() => showModal} name={'open Modal'} callback={undefined}/> */}
+            }}>Buy now</button>
         </div>
 
     )

@@ -27,10 +27,9 @@ export const Header = () => {
     <header className={s.header}>
       <a href='/' className={s.logoWrapper}>
           <img className={s.logo} alt='logo' src={logo}></img>
-          <h1>Online Store</h1>
       </a>
       <p className={s.totalCard}>
-        Card Total:<span>{amount}€</span>
+        Card Total: <span>{amount}€</span>
       </p>
       <Basket count={productCount}/>
     </header>

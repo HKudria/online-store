@@ -1,7 +1,7 @@
 .headersWrapper {
   width: 100%;
-  background-color: azure;
-  border: 1px solid grey;
+  background-color: #E7F0FF;
+  border: 1px solid#E7F0FF;
   border-radius: 10px;
   height: 60px;
   display: flex;
@@ -17,5 +17,17 @@
   &:hover{
     cursor: pointer;
   }
+}
+
+.sorting {
+  width: 230px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.found {
+  font-size: 20px;
+  color: rgb(20, 19, 19);
 }
 

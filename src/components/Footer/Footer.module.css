@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #c0c0c0;
+  background-color: #F4F6F9;
   border-radius: 10px;
   margin-top: 20px;
 }
@@ -16,10 +16,19 @@
 
 .rsLogo {
   width: 100px;
+  padding-left: 30px;
 }
 
 .footerGithub {
   width: 27px;
   height: 27px;
-  padding-right: 10px;
+  padding-right: 5px;
+}
+
+.year {
+  font-size: 20px;
+}
+
+.githubsWrapper {
+  padding-right: 30px;
 }
