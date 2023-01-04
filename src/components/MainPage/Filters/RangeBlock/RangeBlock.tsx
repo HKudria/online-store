@@ -15,13 +15,13 @@ export const RangeBlock = ({ title, from, to, onChange, initMax }: IRangeProps) 
     <div className={s.rangeWrapper}>
       <h2 className={s.title}>{title}</h2>
       <div className={s.diapason}>
-        <p>0 | {from}</p>
+        <p>0 | {isFinite(from) ? from : 0 }</p>
         <p>⟷</p>
         <p>
-          {to} | {initMax}
+          {isFinite(to) ? to : initMax} | {initMax}
         </p>
       </div>
-      <div className={s.rangeSliderWrapper}>{RangeSlider(from, to, onChange, initMax)}</div>
+      <div className={s.rangeSliderWrapper}><RangeSlider min={from} max={to} onChange={onChange} initMax={initMax}/></div>
     </div>
   );
 };

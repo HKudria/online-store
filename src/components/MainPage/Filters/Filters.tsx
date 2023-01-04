@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 
+import {ProductsState} from '../../../redux/products/ProductInterface';
+
 import s from './Filters.module.css';
 import { Button } from './Button/Button';
 import { FilterBlock } from './FilterBlock/FilterBlock';
 import { RangeBlock } from './RangeBlock/RangeBlock';
 
-import { ProductsState } from '../../../redux/products/productsSlice';
-
 interface IFiltersInterface {
   store: ProductsState;
   selectedCategories: string[];
+  selectedBrands: string[];
   onChangeCategory: (category: string) => void;
   onChangeBrands: (category: string) => void;
   onChangePrice: (number: number[]) => void;
@@ -20,12 +21,12 @@ interface IFiltersInterface {
 export const Filters = ({
   store,
   selectedCategories,
+  selectedBrands,
   onChangeCategory,
   onChangeBrands,
   onChangePrice,
   onChangeStock,
-  resetFilter,
-}: IFiltersInterface) => {
+  resetFilter}: IFiltersInterface) => {
   const [categories, setCategories] = useState<Set<string>>(new Set());
   const [brands, setBrands] = useState<Set<string>>(new Set());
 
@@ -39,6 +40,7 @@ export const Filters = ({
             tmpSet.add(product.brand);
           }
         });
+        selectedBrands.forEach(brand => tmpSet.add(brand))
         setBrands(tmpSet);
       } else {
         setBrands((set) => set.add(product.brand));
@@ -46,15 +48,26 @@ export const Filters = ({
     });
   }, [store, selectedCategories]);
 
+  const copyLink = async () => {
+    try {
+      const toCopy = window.location.href;
+      await navigator.clipboard.writeText(toCopy);
+      window.alert('Page URL has been copied');
+    }
+    catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  }
+
   return (
     <div className={s.filterContent}>
       <div className={s.buttonsWrapper}>
         <Button name='Reset Filters' callback={resetFilter} />
-        <Button name='Copy Link' />
+        <Button name='Copy Link' callback={copyLink}/>
       </div>
       <div className={s.filtersWrapper}>
-        <FilterBlock title='Category' data={Array.from(categories)} onChangeFn={onChangeCategory} />
-        <FilterBlock title='Brand' data={Array.from(brands)} onChangeFn={onChangeBrands} />
+        <FilterBlock title='Category' data={Array.from(categories)} onChangeFn={onChangeCategory} selected={selectedCategories}/>
+        <FilterBlock title='Brand' data={Array.from(brands)} onChangeFn={onChangeBrands} selected={selectedBrands}/>
         <RangeBlock
           title='Price'
           from={store.minPrice}

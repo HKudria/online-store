@@ -1,4 +1,3 @@
-import './App.css';
 import { Header } from './components/Header/Header';
 import { MainPage } from './components/MainPage/MainPage';
 import { Footer } from './components/Footer/Footer';
@@ -13,7 +12,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<MainPage />}/>
-          <Route path="/BasketPage" element={<BasketPage />}/>
+          <Route path="/BasketPage" element={<BasketPage itemsPerPage={6}/>}/>
           <Route path="/ProductPage/:id" element={<ProductPage />}/>
         </Routes>
         <Footer />
