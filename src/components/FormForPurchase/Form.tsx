@@ -164,10 +164,13 @@ const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         setCompletedOrder(!completedOrder);
+        localStorage.clear();
         
         setTimeout(() => {
           navigate('/');
+          window.location.reload();
         }, 3000)
+        
       }
          }
        className={s.bntSubmit}
