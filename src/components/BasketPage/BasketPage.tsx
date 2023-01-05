@@ -10,7 +10,6 @@ import {serializeQuery, useQuery} from '../Helper/QueryParser';
 
 import {PromoBlock} from './PromoBlock/PromoBlock';
 import s from './BasketPage.module.css';
-import { Form } from '../FormForPurchase/Form';
 import basket2 from '../../assets/image/basket2.png';
 
 interface IBasketProps {
@@ -29,10 +28,6 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
     const endOffset = itemOffset + itemsPage;
     const currentItems = basket.products.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(basket.products.length / itemsPage);
-    const parameter = window.location.href.slice(window.location.href.indexOf('=') + 1);
-
-    
-
 
     const handlePageClick = (event: { selected: number; }) => {
         setPageNumber(event.selected)
@@ -67,10 +62,10 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
 
     useEffect(() => {
         if (!isLoaded) {
-            setSearchParams(serializeQuery({
+            serializeQuery({
                 'itemPerPage': itemsPage.toString(),
                 'pageNumber': pageNumber.toString()
-            }))
+            })
         }
     }, [itemsPage, pageNumber, basket]);
 
@@ -84,7 +79,7 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
 
     return (
         <>
-            { parameter === 'modal' && <Form /> }
+           
             {basket.products.length === 0 ? <div className={s.empty}>
                 <img className={s.basket} src={basket2} />
                 <p>Basket is empty :(</p>

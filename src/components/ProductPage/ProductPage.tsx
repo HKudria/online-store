@@ -2,17 +2,18 @@ import s from './ProductPage.module.css';
 import { useEffect, useState } from 'react';
 import { IProduct } from '../../redux/products/ProductInterface';
 import { createSearchParams, NavLink, useNavigate } from 'react-router-dom';
-import products from '../../data.json';
 import {getBasketState, addToBasket, removeFromBasket} from '../../redux/basket/basketSlice';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import arrow from '../../assets/image/arrow.png';
-
+import { getProductsState, parseProducts } from '../../redux/products/productsSlice';
 
 export const ProductPage = () => {
   const routeList = location.pathname.split('/');
   const path = routeList[routeList.length - 1];
   const basket = useAppSelector(getBasketState);
+  const products = useAppSelector(getProductsState);
   const dispatch = useAppDispatch();
+
   
   const defaultProduct: IProduct[] = [{
     id: 0,
@@ -30,7 +31,7 @@ export const ProductPage = () => {
 
 
   const [product, setProduct] = useState(defaultProduct);
-  const [image, setImage] = useState(products.products[+path - 1].thumbnail);
+  const [image, setImage] = useState('');
 
   const navigate = useNavigate();
   const params = { page: 'modal'};
@@ -67,9 +68,18 @@ export const ProductPage = () => {
     
 
   useEffect(() => {
-    const currentProduct = products.products.filter((item: IProduct) => item.id === +path);
-     setProduct(currentProduct);
-  }, [])
+    if (products.products.length !== 0) {
+      const currentProduct = products.products.filter((item: IProduct) => item.id === +path);
+      setProduct(currentProduct);
+    }
+  }, [products.products])
+
+  useEffect(() => {
+    dispatch(parseProducts());
+    if (products.products.length !== 0) {
+      setImage(products.products[+path - 1].thumbnail);
+    }
+  }, [products.products]);
 
   return (
     <div className={s.wrapper}>
@@ -112,7 +122,6 @@ export const ProductPage = () => {
              className={s.button}>Buy now</button>
         </div>
       </div>
-
     </div>
   )
 }

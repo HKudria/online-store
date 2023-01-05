@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 import {addDiscount, removeDiscount} from '../../../redux/basket/basketSlice';
 import {BasketState, IDiscount} from '../../../redux/basket/BasketInterface';
@@ -17,6 +17,7 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
     const [disInput, setDisInput] = useState<string>('')
     const dispatch = useAppDispatch();
     const [show, setShow] = useState(false);
+    const parameter = location.search;
     
     const applyDiscount = () => {
         const dis: IDiscount = {
@@ -52,9 +53,15 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
         }
     }
 
+    useEffect(() => {
+        if (parameter === '?page=modal') {
+            setShow(true)
+        }
+    }, [parameter])
+
     return (
         <div className={s.wrapper}>
-            {show && <Form />}
+            {show && <Form onClose={() => setShow(false)}/>}
             <h2 className={s.title}>Summary</h2>
                 <div className={s.totalProducts}>
                     Products:  
@@ -102,14 +109,7 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
                 })}
             </div>
            
-            <button className={s.btn} onClick={() => {
-                if (show) {
-                    setShow(false);
-                } else {
-                    setShow(true)
-                }
-            }}>Buy now</button>
+            <button className={s.btn} onClick={() => setShow(true)}>Buy now</button>
         </div>
-
     )
 }

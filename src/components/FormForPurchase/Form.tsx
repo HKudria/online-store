@@ -4,7 +4,12 @@ import { PaymentForm } from './CreditCard/CreditCard';
 import { useNavigate } from 'react-router-dom';
 import close from '../../assets/image/close.png';
 
-export const Form = () => {
+interface IFormProps {
+  onClose: () => void;
+}
+
+export const Form = (props: IFormProps) => {
+  const {onClose} = props;
   const [email, setEmail] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('')
@@ -21,10 +26,7 @@ export const Form = () => {
   const [addressError, setAddressError] = useState<string>('Address cannot be empty');
 
   const [formValid, setFormValid] = useState(false);
-
   const [completedOrder, setCompletedOrder] = useState(false);
-  const [modalWindow, setModalWindow] = useState(true);
-
 
   const navigate = useNavigate();
   
@@ -106,7 +108,7 @@ const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
   }
 
   return (
-    <div className={modalWindow ? s.container : s.containerNotActive}>
+    <div className={s.container}>
       {completedOrder && (<div className={s.modalWindow}>Order has been placed. You will be redirected to the main page in a few seconds.</div>)}
       
       <div
@@ -115,7 +117,7 @@ const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 
       <img src={close}
        className={s.close}
-       onClick={() => setModalWindow(false)}
+       onClick={onClose}
        />
 
       <form className={s.form}>
