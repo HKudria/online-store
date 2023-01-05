@@ -1,6 +1,6 @@
 import s from './Form.module.css';
 import { useState, useEffect } from 'react';
-import PaymentForm from './CreditCard/CreditCard';
+import { PaymentForm } from './CreditCard/CreditCard';
 import { useNavigate } from 'react-router-dom';
 import close from '../../assets/image/close.png';
 

@@ -1,36 +1,32 @@
 import s from './CreditCard.module.css';
-import React from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/es/styles-compiled.css'
+import { useState } from 'react';
 
-export default class PaymentForm extends React.Component {
-  state = {
-    cvc: '',
-    expiry: '',
-    focus: '',
-    name: '',
-    number: '',
-    value: '',
-  };
+export const PaymentForm = () => {
+  const [name, setName] = useState('');
+  const [focus, setFocus] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [expiry, setExpiry] = useState('');
+  const [cvc, setCvc] = useState('');
 
-  handleInputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ focus: e.target.name });
+  const handleInputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const updateValue = e.target.name;
+    setFocus(updateValue);
   }
   
-  handleInputChangeCardNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    
-    this.setState({ [name]: value });
-
+  const handleInputChangeCardNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setCardNumber(value);
     e.target.value = e.target.value.replace(/\D/g,'');
   }
 
-  handleInputChangeExpiry = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleInputChangeExpiry = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
     const month = e.target.value[0] + e.target.value[1];
     const day = e.target.value[2] + e.target.value[3];
     
-    this.setState({ [name]: value });
+    setExpiry(value);
 
     e.target.value = e.target.value.replace(/\D/g,'');
 
@@ -42,23 +38,21 @@ export default class PaymentForm extends React.Component {
     }
   }
 
-  handleInputChangeCVC = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleInputChangeCVC = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
     
-    this.setState({ [name]: value });
+    setCvc(value);
 
     e.target.value = e.target.value.replace(/\D/g,'');
   }
-  
-  render() {
     return (
       <div id="PaymentForm">
         <Cards
-          cvc={this.state.cvc}
-          expiry={this.state.expiry}
-          focused={this.state.focus}
-          name={this.state.name}
-          number={this.state.number}
+          cvc={cvc}
+          expiry={expiry}
+          focused={focus}
+          name={name}
+          number={cardNumber}
         />
         <form className={s.paymentFormWrapper}>
           <input 
@@ -67,8 +61,8 @@ export default class PaymentForm extends React.Component {
             maxLength={16}
             name="number"
             placeholder="Card Number"
-            onChange={this.handleInputChangeCardNumber}
-            onFocus={this.handleInputFocus}
+            onChange={handleInputChangeCardNumber}
+            onFocus={handleInputFocus}
           />
 
           <input
@@ -77,8 +71,8 @@ export default class PaymentForm extends React.Component {
             name="expiry"
             placeholder="Expiry"
             maxLength={4}
-            onChange={this.handleInputChangeExpiry}
-            onFocus={this.handleInputFocus}
+            onChange={handleInputChangeExpiry}
+            onFocus={handleInputFocus}
           />
 
           <input
@@ -87,11 +81,10 @@ export default class PaymentForm extends React.Component {
             name="cvc"
             placeholder="cvc"
             maxLength={3}
-            onChange={this.handleInputChangeCVC}
-            onFocus={this.handleInputFocus}
+            onChange={handleInputChangeCVC}
+            onFocus={handleInputFocus}
           />
         </form>
       </div>
     );
-  }
 }
