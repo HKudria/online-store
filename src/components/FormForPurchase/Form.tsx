@@ -170,7 +170,6 @@ const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
           navigate('/');
           window.location.reload();
         }, 3000)
-        
       }
          }
        className={s.bntSubmit}

@@ -11,6 +11,7 @@ import {serializeQuery, useQuery} from '../Helper/QueryParser';
 import {PromoBlock} from './PromoBlock/PromoBlock';
 import s from './BasketPage.module.css';
 import { Form } from '../FormForPurchase/Form';
+import basket2 from '../../assets/image/basket2.png';
 
 interface IBasketProps {
     itemsPerPage: number
@@ -84,10 +85,12 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
     return (
         <>
             { parameter === 'modal' && <Form /> }
-            {basket.products.length === 0 ? <div className={s.empty}><h1>Basket is empty</h1></div> :
+            {basket.products.length === 0 ? <div className={s.empty}>
+                <img className={s.basket} src={basket2} />
+                <p>Basket is empty :(</p>
+            </div> :
                 <>
-                    <PromoBlock basket={basket}/>
-                    Items per page: <input type={'number'} value={itemsPage} onChange={changePage}/>
+                <div className={s.container}>
                     <div className={s.wrapper}>
                         {currentItems.map((item, index) => (
                             <div className={s.card} key={item.key.id + item.key.rating}>
@@ -96,6 +99,17 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
                         ))
                         }
                     </div>
+                    <div className={s.promoContainer}>
+                        <PromoBlock basket={basket}/>
+                        <div className={s.itemsOnPage}>
+                            Items per page: <input className={s.input} type={'number'} value={itemsPage} onChange={changePage}/>
+                        </div>
+                        
+                    </div>
+                </div>
+                    
+                    
+                    
                     <ReactPaginate
                         activeClassName={`${s.item} ${s.active}`}
                         breakClassName={`${s.item} ${s.breakMe}`}

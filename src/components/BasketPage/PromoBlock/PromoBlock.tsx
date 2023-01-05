@@ -37,16 +37,16 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
     const renderPrice = () => {
         if (basket.discount.length !== 0) {
             return (
-                <div>
-                    Products: 
-                    <s>{basket.totalAmount}</s> -- <b>{basket.discountAmount}</b>
+                <div className={s.totalPrice}>
+                    Price: 
+                    <s>{basket.totalAmount}</s> <b className={s.price}>{basket.discountAmount}</b>
                 </div>
             )
         } else {
             return (
-                <div>
-                    Total: 
-                    <b>{basket.totalAmount}</b>
+                <div className={s.totalPrice}>
+                    Price:  
+                    <span className={s.price}> {basket.totalAmount}</span><span className={s.price}>€</span>
                 </div>
             )
         }
@@ -56,35 +56,53 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
         <div className={s.wrapper}>
             {show && <Form />}
             <h2 className={s.title}>Summary</h2>
+                <div className={s.totalProducts}>
+                    Products:  
+                    <span className={s.amountProducts}> 
+                        {basket.products.reduce((acc, prod) => {
+                        acc += prod.value
+                        return acc;
+                    }, 0)}
+                    </span>
+                </div>
+                
+            {renderPrice()}
             <div className={s.discounts}>
-                Discount list:
+                Discounts:
                 <br></br>
-                10%: {percent10.map(el => (el + ' '))}
+                10%: 
+                <span className={s.promoCode}>
+                    {percent10.map(el => (el + ' '))}
+                </span>
                 <br></br>
-                20%: {percent20.map(el => (el + ' '))}
-                {renderPrice()}
-                Total products: {basket.products.reduce((acc, prod) => {
-                acc += prod.value
-                return acc;
-            }, 0)}
+                20%: 
+                <span className={s.promoCode}>
+                    {percent20.map(el => (el + ' '))}
+                </span>
+                
             </div>
            
-          
+          <div className={s.addPromoCode}>
             <input
-                name='discount'
-                placeholder='enter promo code'
-                type='text'
-                value={disInput}
-                onChange={(event) => setDisInput(event.currentTarget.value)}
-            />
-            <Button name={'Apply discount'} callback={applyDiscount}/>
-            {basket.discount.map(dis => {
-                return (<div key={dis.key}>
-                    {dis.key}
-                    <Button name={'Drop discount'} callback={() => dispatch(removeDiscount(dis))}/>
-                </div>)
-            })}
-            <button onClick={() => {
+                    className={s.inputPromo}
+                    name='discount'
+                    placeholder='Enter promo code'
+                    type='text'
+                    value={disInput}
+                    onChange={(event) => setDisInput(event.currentTarget.value)}
+                />
+                <Button name={'Apply discount'} callback={applyDiscount}/>
+          </div>
+            <div className={s.dropDiscount}>
+                {basket.discount.map(dis => {
+                    return (<div className={s.promoCode} key={dis.key}>
+                        {dis.key}
+                        <Button name={'Drop discount'} callback={() => dispatch(removeDiscount(dis))}/>
+                    </div>)
+                })}
+            </div>
+           
+            <button className={s.btn} onClick={() => {
                 if (show) {
                     setShow(false);
                 } else {

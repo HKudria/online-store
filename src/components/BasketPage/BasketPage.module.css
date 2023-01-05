@@ -12,6 +12,35 @@
     justify-content: center;
 }
 
+.container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.promoContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.itemsOnPage {
+    margin-top: 20px;
+    font-size: 20px;
+    color: rgb(20, 19, 19);
+}
+
+.basket {
+    width: 50px;
+    height: 50px;
+}
+
+.input {
+  width: 50px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
 .item {
     align-items: center;
     color: #000;
@@ -63,9 +92,14 @@
 }
 
 .empty{
+    margin: 50px 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-size: 25px;
+    color: #4C85D6;
+    font-weight: 400;
 }
 
 .previous {
