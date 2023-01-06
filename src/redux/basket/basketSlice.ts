@@ -100,7 +100,6 @@ export const basketSlice = createSlice({
             const percent10 = ['ten1','ten2','ten3'];
             const percent20 = ['twenty','twenty1','twenty2'];
             if(percent10.includes(action.payload.key) || percent20.includes(action.payload.key)){
-                console.log(checkIfDiscountWasUsed(state, action.payload.key))
                 if(!checkIfDiscountWasUsed(state, action.payload.key)){
                     state.discount.push(action.payload)
                 }
