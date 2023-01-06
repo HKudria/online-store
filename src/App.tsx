@@ -3,7 +3,9 @@ import { MainPage } from './components/MainPage/MainPage';
 import { Footer } from './components/Footer/Footer';
 import { BasketPage } from './components/BasketPage/BasketPage';
 import { ProductPage } from './components/ProductPage/ProductPage';
+import { NotFoundPage } from './components/NotFoundPage/NotFoundPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 
 const App = () => {
   return (
@@ -14,6 +16,7 @@ const App = () => {
           <Route path="/" element={<MainPage />}/>
           <Route path="/BasketPage" element={<BasketPage itemsPerPage={6}/>}/>
           <Route path="/ProductPage/:id" element={<ProductPage />}/>
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
       </div>

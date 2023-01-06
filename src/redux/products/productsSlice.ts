@@ -4,6 +4,9 @@ import {IFilter, IProduct, ISort, ProductsState} from './ProductInterface';
 
 import {RootState} from '../store';
 
+import productArr from '../../data.json';
+
+
 const initialState: ProductsState = {
     products: [],
     filteredProduct: [],
@@ -18,8 +21,7 @@ const initialState: ProductsState = {
 };
 
 export const parseProducts = createAsyncThunk('products/fetchProducts', async () => {
-    const response = await fetch('https://dummyjson.com/products?limit=100');
-    const data = await response.json();
+    const data = await productArr;
     return data.products;
 });
 

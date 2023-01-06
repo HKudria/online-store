@@ -1,14 +1,15 @@
 .filterContent {
-  background-color: #c0c0c0;
+  background-color: #F4F6F9;
   height: fit-content;
   margin-top: 30px;
   border-radius: 10px;
   top: 0;
+  padding-bottom: 20px;
 }
 
 .buttonsWrapper {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding-top: 15px;
+  padding-top: 25px;
 }

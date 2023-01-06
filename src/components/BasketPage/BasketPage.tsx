@@ -10,6 +10,7 @@ import {serializeQuery, useQuery} from '../Helper/QueryParser';
 
 import {PromoBlock} from './PromoBlock/PromoBlock';
 import s from './BasketPage.module.css';
+import basket2 from '../../assets/image/basket2.png';
 
 interface IBasketProps {
     itemsPerPage: number
@@ -23,11 +24,10 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
     const query = useQuery()
     const basket = useAppSelector(getBasketState);
     const [isLoaded, setIsLoaded] = useState<boolean>(true)
-    const [itemOffset, setItemOffset] = useState(0);
+    const [itemOffset, setItemOffset] = useState<number>(0);
     const endOffset = itemOffset + itemsPage;
     const currentItems = basket.products.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(basket.products.length / itemsPage);
-
 
     const handlePageClick = (event: { selected: number; }) => {
         setPageNumber(event.selected)
@@ -44,7 +44,7 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
                         setItemsPage(parseInt(data))
                         break;
                     case 'pageNumber':
-                        handlePageClick({selected: parseInt(data) > basket.products.length / itemsPage ? 0 : parseInt(data)})
+                        handlePageClick({selected: parseInt(data) > Math.ceil(basket.products.length / itemsPage) ? 0 : parseInt(data)})
                         break;
                 }
             }
@@ -69,7 +69,6 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
         }
     }, [itemsPage, pageNumber, basket]);
 
-
     const changePage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setItemsPage(isNaN(parseInt(event.currentTarget.value)) ? 1 : parseInt(event.currentTarget.value))
         if (parseInt(event.currentTarget.value) >= basket.products.length) {
@@ -79,10 +78,13 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
 
     return (
         <>
-            {basket.products.length === 0 ? <div className={s.empty}><h1>Basket is empty</h1></div> :
+           
+            {basket.products.length === 0 ? <div className={s.empty}>
+                <img className={s.basket} src={basket2} alt='basket' />
+                <p>Basket is empty :(</p>
+            </div> :
                 <>
-                    <PromoBlock basket={basket}/>
-                    Items per page: <input type={'number'} value={itemsPage} onChange={changePage}/>
+                <div className={s.container}>
                     <div className={s.wrapper}>
                         {currentItems.map((item, index) => (
                             <div className={s.card} key={item.key.id + item.key.rating}>
@@ -91,6 +93,15 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
                         ))
                         }
                     </div>
+                    <div className={s.promoContainer}>
+                        <PromoBlock basket={basket}/>
+                        <div className={s.itemsOnPage}>
+                            Items per page: <input className={s.input} type={'number'} value={itemsPage} onChange={changePage}/>
+                        </div>
+                        
+                    </div>
+                </div>
+                    
                     <ReactPaginate
                         activeClassName={`${s.item} ${s.active}`}
                         breakClassName={`${s.item} ${s.breakMe}`}
