@@ -4,11 +4,11 @@ import 'react-credit-cards-2/es/styles-compiled.css'
 import { useState } from 'react';
 
 export const PaymentForm = () => {
-  const [name, setName] = useState('');
-  const [focus, setFocus] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [expiry, setExpiry] = useState('');
-  const [cvc, setCvc] = useState('');
+  const [name, setName] = useState<string>('');
+  const [focus, setFocus] = useState<string>('');
+  const [cardNumber, setCardNumber] = useState<string>('');
+  const [expiry, setExpiry] = useState<string>('');
+  const [cvc, setCvc] = useState<string>('');
 
   const handleInputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
     const updateValue = e.target.name;

@@ -5,7 +5,9 @@ import {BasketState, IDiscount} from '../../../redux/basket/BasketInterface';
 import {useAppDispatch} from '../../../redux/hooks';
 import {Button} from '../../MainPage/Filters/Button/Button';
 import { Form } from '../../FormForPurchase/Form';
+import { useQuery } from '../../Helper/QueryParser';
 import s from './PromoBlock.module.css';
+
 
 interface IPromoBlockProps {
     basket: BasketState
@@ -16,8 +18,9 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
     const percent20 = ['twenty', 'twenty1', 'twenty2'];
     const [disInput, setDisInput] = useState<string>('')
     const dispatch = useAppDispatch();
-    const [show, setShow] = useState(false);
-    const parameter = location.search;
+    const [show, setShow] = useState<boolean>(false);
+    const query = useQuery();
+    const parameter = query.get('page');
     
     const applyDiscount = () => {
         const dis: IDiscount = {
@@ -54,7 +57,7 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
     }
 
     useEffect(() => {
-        if (parameter === '?page=modal') {
+        if (parameter === 'modal') {
             setShow(true)
         }
     }, [parameter])
@@ -103,8 +106,10 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
             <div className={s.dropDiscount}>
                 {basket.discount.map(dis => {
                     return (<div className={s.promoCode} key={dis.key}>
-                        {dis.key}
-                        <Button name={'Drop discount'} callback={() => dispatch(removeDiscount(dis))}/>
+                        <div className={s.promoWrapper}>
+                            <div className={s.promoCodeItem}>{dis.key}</div>
+                            <Button name={'Drop discount'} callback={() => dispatch(removeDiscount(dis))}/>
+                        </div>
                     </div>)
                 })}
             </div>

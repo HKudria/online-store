@@ -1,9 +1,10 @@
 .filterContent {
   background-color: #F4F6F9;
-  height: 1010px;
+  height: fit-content;
   margin-top: 30px;
   border-radius: 10px;
   top: 0;
+  padding-bottom: 20px;
 }
 
 .buttonsWrapper {

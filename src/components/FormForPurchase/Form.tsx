@@ -25,8 +25,8 @@ export const Form = (props: IFormProps) => {
   const [phoneError, setPhoneError] = useState<string>('Phone number cannot be empty');
   const [addressError, setAddressError] = useState<string>('Address cannot be empty');
 
-  const [formValid, setFormValid] = useState(false);
-  const [completedOrder, setCompletedOrder] = useState(false);
+  const [formValid, setFormValid] = useState<boolean>(false);
+  const [completedOrder, setCompletedOrder] = useState<boolean>(false);
 
   const navigate = useNavigate();
   
@@ -116,6 +116,7 @@ const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       onClick={(e) => e.stopPropagation}>
 
       <img src={close}
+       alt='closeItem'
        className={s.close}
        onClick={onClose}
        />

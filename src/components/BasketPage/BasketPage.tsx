@@ -24,7 +24,7 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
     const query = useQuery()
     const basket = useAppSelector(getBasketState);
     const [isLoaded, setIsLoaded] = useState<boolean>(true)
-    const [itemOffset, setItemOffset] = useState(0);
+    const [itemOffset, setItemOffset] = useState<number>(0);
     const endOffset = itemOffset + itemsPage;
     const currentItems = basket.products.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(basket.products.length / itemsPage);
@@ -44,7 +44,7 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
                         setItemsPage(parseInt(data))
                         break;
                     case 'pageNumber':
-                        handlePageClick({selected: parseInt(data) > basket.products.length / itemsPage ? 0 : parseInt(data)})
+                        handlePageClick({selected: parseInt(data) > Math.ceil(basket.products.length / itemsPage) ? 0 : parseInt(data)})
                         break;
                 }
             }
@@ -62,13 +62,12 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
 
     useEffect(() => {
         if (!isLoaded) {
-            serializeQuery({
+            setSearchParams(serializeQuery({
                 'itemPerPage': itemsPage.toString(),
                 'pageNumber': pageNumber.toString()
-            })
+            }))
         }
     }, [itemsPage, pageNumber, basket]);
-
 
     const changePage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setItemsPage(isNaN(parseInt(event.currentTarget.value)) ? 1 : parseInt(event.currentTarget.value))
@@ -81,7 +80,7 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
         <>
            
             {basket.products.length === 0 ? <div className={s.empty}>
-                <img className={s.basket} src={basket2} />
+                <img className={s.basket} src={basket2} alt='basket' />
                 <p>Basket is empty :(</p>
             </div> :
                 <>
@@ -102,8 +101,6 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
                         
                     </div>
                 </div>
-                    
-                    
                     
                     <ReactPaginate
                         activeClassName={`${s.item} ${s.active}`}

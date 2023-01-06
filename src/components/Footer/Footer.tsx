@@ -17,7 +17,7 @@ export const Footer = () => {
           <img src={github} alt='github-logo' className={s.footerGithub} />
         </a>
         <a
-          href='https://github.com/HKudria?tab=overview&from=2022-12-01&to=2022-12-16'
+          href='https://github.com/HKudria'
           className=''
         >
           <img src={github} alt='github-logo' className={s.footerGithub} />

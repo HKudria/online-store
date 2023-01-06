@@ -61,6 +61,10 @@ export const Filters = ({
 
   return (
     <div className={s.filterContent}>
+      <div className={s.buttonsWrapper}>
+        <Button name='Reset Filters' callback={resetFilter} />
+        <Button name='Copy Link' callback={copyLink}/>
+      </div>
       <div className={s.filtersWrapper}>
         <FilterBlock title='Category' data={Array.from(categories)} onChangeFn={onChangeCategory} selected={selectedCategories}/>
         <FilterBlock title='Brand' data={Array.from(brands)} onChangeFn={onChangeBrands} selected={selectedBrands}/>
@@ -79,10 +83,6 @@ export const Filters = ({
           initMax={store.initMaxStock}
         />
       </div>
-        <div className={s.buttonsWrapper}>
-          <Button name='Reset Filters' callback={resetFilter} />
-          <Button name='Copy Link' callback={copyLink}/>
-        </div>
     </div>
   );
 };

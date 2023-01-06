@@ -48,12 +48,26 @@
   margin-right: 10px;
 }
 
-.addPromoCode, 
-.dropDiscount {
+.promoWrapper {
+  display: flex;
+  margin: 10px 0;
+}
+
+.promoCodeItem {
+  margin-right: 20px;
+}
+
+.addPromoCode {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 20px 0;
+}
+
+.dropDiscount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .btn {
