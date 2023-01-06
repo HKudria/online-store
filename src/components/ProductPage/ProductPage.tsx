@@ -49,7 +49,7 @@ export const ProductPage = () => {
 
   const addProductInBasket = () => {
     if (inBasket) {
-      dispatch(removeFromBasket({product: product}));
+      dispatch(removeFromBasket({product: product, isMainPage: true}));
       setInBasket(false)
     } else {
       dispatch(addToBasket(product));
@@ -79,21 +79,21 @@ export const ProductPage = () => {
     <div className={s.wrapper}>
       <div className={s.breadCrumbs}>
         <NavLink to='/' className={s.breadCrumbsItem}>Store</NavLink>
-        <img className={s.arrow} src={arrow} />
+        <img className={s.arrow} src={arrow} alt={'arrow'}/>
         <p className={s.breadCrumbsItem}>{product.category}</p>
-        <img className={s.arrow} src={arrow} />
+        <img className={s.arrow} src={arrow} alt={'arrow'}/>
         <p className={s.breadCrumbsItem}>{product.brand}</p>
-        <img className={s.arrow} src={arrow} />
+        <img className={s.arrow} src={arrow} alt={'arrow'}/>
         <p className={s.breadCrumbsItem}>{product.title}</p>
       </div>
       <div className={s.productName}>{product.title}</div>
       <div className={s.content}>
         <div className={s.photo}>
           <div className={s.miniPhoto}>
-            {product.images.map((item, index) => <img onClick={() => setImage(item)} key={index} className={s.miniPhotoItem} src={item}></img>)}
+            {product.images.map((item, index) => <img onClick={() => setImage(item)} key={index} className={s.miniPhotoItem} src={item} alt={item}></img>)}
           </div>
           <div className={s.bigPhoto}>
-            <img className={s.bigPhotoItem} src={image}></img>
+            <img className={s.bigPhotoItem} src={image} alt={image}></img>
           </div>
         </div>
         <div className={s.description}>
