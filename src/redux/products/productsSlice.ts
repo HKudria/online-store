@@ -74,8 +74,8 @@ export const productsSlice = createSlice({
                 state.products.sort((a, b) => a[action.payload.action] - b[action.payload.action]);
                 state.filteredProduct.sort((a, b) => a[action.payload.action] - b[action.payload.action]);
             } else if (action.payload.type === 'desc') {
-                 state.products.sort((a, b) => b[action.payload.action] - a[action.payload.action]);
-                 state.filteredProduct.sort((a, b) => b[action.payload.action] - a[action.payload.action]);
+                state.products.sort((a, b) => b[action.payload.action] - a[action.payload.action]);
+                state.filteredProduct.sort((a, b) => b[action.payload.action] - a[action.payload.action]);
             }
         },
         filterProduct(state, action: PayloadAction<IFilter>) {

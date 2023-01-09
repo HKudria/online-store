@@ -63,11 +63,8 @@ export const MainPage = () => {
     useEffect(() => {
         dispatch(initBasket());
         dispatch(parseProducts());
-    }, []);
-
-    useEffect(() => {
         deserializeQuery(['category', 'brand', 'price', 'stock', 'view', 'search', 'sort'])
-    }, [products.products]);
+    }, []);
 
     useEffect(() => {
         if (products.status === 'idle') {
