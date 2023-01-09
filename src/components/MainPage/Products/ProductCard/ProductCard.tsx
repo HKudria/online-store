@@ -42,7 +42,7 @@ export const ProductCard: React.FC<IProductCardInterface> = ({
 
     return (
         <>
-            <NavLink to={'/ProductPage/' + String(product.id)}>
+            <NavLink to={`/ProductPage/${product.id}`}>
                 {viewType === ProductsCardSizeEnum.Full ? <FullCard product={product} isAdded={isAdded} callback={addProductToBasket} />
                     : <SmallCard product={product} isAdded={isAdded} callback={addProductToBasket} />}
             </NavLink>

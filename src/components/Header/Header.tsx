@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
+import {NavLink} from 'react-router-dom';
 
 import {useAppSelector} from '../../redux/hooks';
 import {getBasketState} from '../../redux/basket/basketSlice';
-import logo from '../../assets/image/logo.png';
 
+import logo from '../../assets/image/logo.png';
 import { Basket } from './Basket/Basket';
 import s from './Header.module.css';
 
@@ -25,9 +26,9 @@ export const Header = () => {
     }, [basket.discount, basket.products]);
   return (
     <header className={s.header}>
-      <a href='/' className={s.logoWrapper}>
+        <NavLink to={'/'}>
           <img className={s.logo} alt='logo' src={logo}></img>
-      </a>
+        </NavLink>
       <p className={s.totalCard}>
         Card Total: <span>{amount}€</span>
       </p>
