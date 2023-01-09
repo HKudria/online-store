@@ -45,12 +45,12 @@ export const Form = (props: IFormProps) => {
     const arrayOfNameAndSurname = nameAndSurname.split(' ');
     if (arrayOfNameAndSurname.length >= 2) {
       if (arrayOfNameAndSurname.some(item => item.length < 3)) {
-        setNameError('Incorrect name and surname');
+        setNameError('The name must contain 2 words, each with at least 3 letters');
       } else {
         setNameError('');
       }
     } else {
-      setNameError('Incorrect name and surname');
+      setNameError('The name must contain 2 words, each with at least 3 letters');
     }
   } 
 
@@ -70,13 +70,13 @@ const phoneHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
   if (phoneNumber[0] === '+' && phoneNumber.length > 9) {
     for (let i = 1; i < phoneNumber.length; i++) {
       if (phoneNumber[i].charCodeAt(0) < 48 || phoneNumber[i].charCodeAt(0) > 57) {
-        setPhoneError('Incorrect phone number');
+        setPhoneError('Phone number must start with + and contain at least 9 digits');
       } else {
         setPhoneError('');
       }
     }
   } else {
-    setPhoneError('Incorrect phone number');
+    setPhoneError('Phone number must start with + and contain at least 9 digits');
   }
 }
 
@@ -86,12 +86,12 @@ const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
   const addressArray = addressStr.split(' ');
   if (addressArray.length >= 3) {
     if (addressArray.some(item => item.length < 5)) {
-      setAddressError('Incorrect address');
+      setAddressError('The address must contain at least 3 words, each with at least 5 letters');
     } else {
       setAddressError('');
     }
 } else {
-  setAddressError('Incorrect address');
+  setAddressError('The address must contain at least 3 words, each with at least 5 letters');
 }
 }
   
