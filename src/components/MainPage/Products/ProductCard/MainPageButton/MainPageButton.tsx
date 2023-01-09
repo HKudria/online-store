@@ -10,7 +10,7 @@ export const MainPageButton = ({isAdded, callback}: IMainPageButtonProps) => {
     return (
         <>
             <MaterialButton size='small' color={isAdded ? 'primary' : 'success'} onClick={callback !== undefined ? (e) => callback(e) : undefined}>
-            {isAdded ? 'Drom from basket' : 'Add to card'}
+            {isAdded ? 'Drop from card' : 'Add to card'}
             </MaterialButton>
             <MaterialButton size='small' color='primary'>
                 More

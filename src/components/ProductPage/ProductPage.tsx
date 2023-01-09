@@ -49,7 +49,7 @@ export const ProductPage = () => {
 
   const addProductInBasket = () => {
     if (inBasket) {
-      dispatch(removeFromBasket({product: product, isMainPage: true}));
+      dispatch(removeFromBasket({product, isMainPage: true}));
       setInBasket(false)
     } else {
       dispatch(addToBasket(product));

@@ -22,8 +22,8 @@ export const BasketButton = ({product, count}: IMainPageButtonProps) => {
             <MaterialButton size='small' color='primary' onClick={() => dispatch(removeFromBasket({product}))}>
                 REMOVE
             </MaterialButton>
-            <MaterialButton size='small' color='secondary' onClick={() => dispatch(removeFromBasket({product}))}>
-                <NavLink to={'/ProductPage/' + String(product.id)}>MORE</NavLink>
+            <MaterialButton size='small' color='secondary'>
+                <NavLink to={`/ProductPage/${product.id}`}>MORE</NavLink>
             </MaterialButton>
         </>
     )
