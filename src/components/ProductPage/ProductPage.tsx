@@ -31,7 +31,7 @@ export const ProductPage = () => {
   }
 
   const [product, setProduct] = useState<IProduct>(defaultProduct);
-  const [image, setImage] = useState<string>('');
+  const [image, setImage] = useState<string>();
 
   const navigate = useNavigate();
   const params = { page: 'modal'};
@@ -71,7 +71,7 @@ export const ProductPage = () => {
 
   useEffect(() => {
     if (products.products.length !== 0) {
-      setImage(products.products[+path - 1].thumbnail);
+      setImage(products.products[+path - 1].images[0]);
     }
   }, [products.products])
 
