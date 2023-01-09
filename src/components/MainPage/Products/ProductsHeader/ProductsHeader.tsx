@@ -1,5 +1,3 @@
-import {useEffect} from 'react';
-
 import s from './ProductsHeader.module.scss';
 
 import {ProductsCardSizeEnum} from '../../MainPage';
@@ -15,15 +13,9 @@ interface IProductHeaderProps {
 }
 
 export const ProductsHeader = ({count, sort, view, filter, sortType}: IProductHeaderProps) => {
-    useEffect(() => {
-        if (sortType.length !== 0) {
-            (document.getElementById('sortSelect') as HTMLOptionElement).value = sortType;
-        }
-    }, [sortType]);
-
     return (
         <div className={s.headersWrapper}>
-            <select className={s.sorting} onChange={(value) => sort(value.currentTarget.value)} id='sortSelect'>
+            <select className={s.sorting} onChange={(value) => sort(value.currentTarget.value)} value={sortType}>
                 <option>Select sort options</option>
                 <option value='asc↑price'>Sort by price ASC</option>
                 <option value='desc↑price'>Sort by price DESC</option>
