@@ -1,11 +1,11 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import { Header } from './components/Header/Header';
 import { MainPage } from './components/MainPage/MainPage';
 import { Footer } from './components/Footer/Footer';
 import { BasketPage } from './components/BasketPage/BasketPage';
 import { ProductPage } from './components/ProductPage/ProductPage';
 import { NotFoundPage } from './components/NotFoundPage/NotFoundPage';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 
 const App = () => {
   return (

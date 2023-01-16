@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, MouseEvent, FC} from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {IProduct} from '../../../../redux/products/ProductInterface';
@@ -14,7 +14,7 @@ interface IProductCardInterface {
     viewType: string;
 }
 
-export const ProductCard: React.FC<IProductCardInterface> = ({
+export const ProductCard: FC<IProductCardInterface> = ({
                                                                  product, viewType
                                                              }: IProductCardInterface) => {
     const dispatch = useAppDispatch();
@@ -29,7 +29,7 @@ export const ProductCard: React.FC<IProductCardInterface> = ({
         })
     }, []);
 
-    const addProductToBasket = (event: React.MouseEvent) => {
+    const addProductToBasket = (event: MouseEvent) => {
         event.preventDefault()
         if (isAdded){
             dispatch(removeFromBasket({product, isMainPage: true}))

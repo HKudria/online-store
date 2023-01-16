@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent, FC } from 'react';
 
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -20,12 +20,12 @@ import {BasketButton} from '../BasketButton/BasketButton';
 interface IProductCardInterface {
     product: IProduct;
     isAdded?: boolean;
-    callback?: (e: React.MouseEvent) => void;
+    callback?: (e: MouseEvent) => void;
     count?: number
     id?: number
 }
 
-export const FullCard: React.FC<IProductCardInterface> = ({product, isAdded, callback, count, id}: IProductCardInterface) => {
+export const FullCard: FC<IProductCardInterface> = ({product, isAdded, callback, count, id}: IProductCardInterface) => {
 
     return (
         <>

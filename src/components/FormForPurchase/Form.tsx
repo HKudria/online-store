@@ -1,14 +1,12 @@
-import s from './Form.module.css';
-import { useState, useEffect } from 'react';
-import { PaymentForm } from './CreditCard/CreditCard';
+import { useState, useEffect, ChangeEvent, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import close from '../../assets/image/close.png';
 
-interface IFormProps {
-  onClose: () => void;
-}
+import { PaymentForm } from './CreditCard/CreditCard';
+import s from './Form.module.css';
 
-export const Form = (props: IFormProps) => {
+export const Form = (props: { onClose: () => void }) => {
   const {onClose} = props;
   const [email, setEmail] = useState<string>('');
   const [name, setName] = useState<string>('');
@@ -39,7 +37,7 @@ export const Form = (props: IFormProps) => {
     }
   }, [nameError, emailError, phoneError, addressError]);
 
-  const nameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const nameHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
     const nameAndSurname = e.target.value;
     const arrayOfNameAndSurname = nameAndSurname.split(' ');
@@ -54,7 +52,7 @@ export const Form = (props: IFormProps) => {
     }
   } 
 
-const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+const emailHandler = (e: ChangeEvent<HTMLInputElement>) => {
   setEmail(e.target.value);
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   if (!re.test(String(e.target.value).toLowerCase())) {
@@ -64,7 +62,7 @@ const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
   }
 };
 
-const phoneHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+const phoneHandler = (e: ChangeEvent<HTMLInputElement>) => {
   setPhone(e.target.value);
   const phoneNumber = e.target.value;
   if (phoneNumber[0] === '+' && phoneNumber.length > 9) {
@@ -80,7 +78,7 @@ const phoneHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
   }
 }
 
-const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+const addressHandler = (e: ChangeEvent<HTMLInputElement>) => {
   setAddress(e.target.value);
   const addressStr = e.target.value;
   const addressArray = addressStr.split(' ');
@@ -95,7 +93,7 @@ const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 }
 }
   
-  const blurHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const blurHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'email') {
       setEmailDirty(true);
     } else if (e.target.name === 'name') {
@@ -164,7 +162,7 @@ const addressHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       <h2 className={s.title}>Credit card details</h2>
       <PaymentForm />
       <button
-      onClick={(e: React.MouseEvent<HTMLElement>) => {
+      onClick={(e: MouseEvent<HTMLElement>) => {
         e.preventDefault();
         setCompletedOrder(!completedOrder);
         localStorage.clear();

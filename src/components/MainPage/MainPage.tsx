@@ -1,14 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useSearchParams} from 'react-router-dom'
 
 import {filterProduct, getProductsState, parseProducts, sort} from '../../redux/products/productsSlice';
 import {initBasket} from '../../redux/basket/basketSlice'
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 
+import {useQuery, serializeQuery} from '../Helper/QueryParser'
+
 import s from './MainPage.module.css';
 import {Filters} from './Filters/Filters';
 import {Products} from './Products/Products';
-import {useQuery, serializeQuery} from '../Helper/QueryParser'
+
 
 export enum ProductsCardSizeEnum {
     Small = 'small',

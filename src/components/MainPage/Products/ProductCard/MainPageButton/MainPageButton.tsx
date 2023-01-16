@@ -1,9 +1,9 @@
 import {Button as MaterialButton} from '@mui/material';
-import React from 'react';
+import { MouseEvent } from 'react';
 
 interface IMainPageButtonProps {
     isAdded: boolean;
-    callback: ((e: React.MouseEvent) => void) | undefined;
+    callback: ((e: MouseEvent) => void) | undefined;
 }
 
 export const MainPageButton = ({isAdded, callback}: IMainPageButtonProps) => {
