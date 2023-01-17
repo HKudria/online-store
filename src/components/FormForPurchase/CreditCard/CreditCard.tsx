@@ -17,14 +17,11 @@ export const PaymentForm = () => {
   }
   
   const handleInputChangeCardNumber = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    
     e.target.value = e.target.value.replace(/\D/g,'');
-    setCardNumber(value);
+    setCardNumber(e.target.value);
   }
 
   const handleInputChangeExpiry = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
     const month = e.target.value[0] + e.target.value[1];
     const day = e.target.value[2] + e.target.value[3];
     
@@ -37,15 +34,12 @@ export const PaymentForm = () => {
       e.target.value = e.target.value.replace(day,'');
     }
 
-    setExpiry(value);
+    setExpiry(e.target.value);
   }
 
   const handleInputChangeCVC = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    
-    setCvc(value);
-
     e.target.value = e.target.value.replace(/\D/g,'');
+    setCvc(e.target.value);
   }
     return (
       <div id="PaymentForm">
