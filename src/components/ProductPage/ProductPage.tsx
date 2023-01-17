@@ -14,7 +14,7 @@ export const ProductPage = () => {
   const products = useAppSelector(getProductsState);
   const dispatch = useAppDispatch();
   const {id} = useParams();
-  const path = {id}.id ?? 0;
+  const path = id ?? 0;
   const [inBasket, setInBasket] = useState<boolean>(false);
 
   const defaultProduct: IProduct = {

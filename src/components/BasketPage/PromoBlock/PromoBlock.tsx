@@ -59,15 +59,14 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
                     }, 0)}
                     </span>
                 </div>
-            {basket.discount.length !== 0 ? 
+
                <div className={s.totalPrice}>
-                    Price: 
-                    <s>{basket.totalAmount}</s> <b className={s.price}>{basket.discountAmount}</b>
-              </div> :
-              <div className={s.totalPrice}>
-                    Price:  
-                    <span className={s.price}> {basket.totalAmount}</span><span className={s.price}>€</span>
-              </div>}
+                    Price:
+                   {basket.discount.length !== 0 ?
+                       <><s>{basket.totalAmount}</s> <b className={s.price}>{basket.discountAmount}</b></> :
+                       <><span className={s.price}> {basket.totalAmount}</span><span className={s.price}>€</span></> }
+              </div>
+
 
             <div className={s.discounts}>
                 Discounts:
