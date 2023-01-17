@@ -1,19 +1,20 @@
-import s from './ProductPage.module.css';
 import { useEffect, useState } from 'react';
-import { IProduct } from '../../redux/products/ProductInterface';
 import {createSearchParams, NavLink, useNavigate, useParams} from 'react-router-dom';
+
+import { IProduct } from '../../redux/products/ProductInterface';
 import {getBasketState, addToBasket, removeFromBasket} from '../../redux/basket/basketSlice';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import arrow from '../../assets/image/arrow.png';
 import { getProductsState, parseProducts } from '../../redux/products/productsSlice';
 
+import s from './ProductPage.module.css';
 
 export const ProductPage = () => {
   const basket = useAppSelector(getBasketState);
   const products = useAppSelector(getProductsState);
   const dispatch = useAppDispatch();
-  const parameter = useParams();
-  const path = parameter.id ?? 0;
+  const {id} = useParams();
+  const path = id ?? 0;
   const [inBasket, setInBasket] = useState<boolean>(false);
 
   const defaultProduct: IProduct = {
@@ -61,6 +62,8 @@ export const ProductPage = () => {
     if (products.products.length !== 0) {
       const currentProduct = products.products.filter((item: IProduct) => item.id === +path);
       setProduct(currentProduct[0]);
+      setImage(products.products[+path - 1].images[0]);
+      
     }
     setInBasket(!!basket.products.find(item => item.key.id === +path));
   }, [products.products])
@@ -68,12 +71,6 @@ export const ProductPage = () => {
   useEffect(() => {
     dispatch(parseProducts());
   }, []);
-
-  useEffect(() => {
-    if (products.products.length !== 0) {
-      setImage(products.products[+path - 1].images[0]);
-    }
-  }, [products.products])
 
   return (
     <div className={s.wrapper}>

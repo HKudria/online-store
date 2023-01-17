@@ -1,7 +1,8 @@
-import s from './CreditCard.module.css';
+import { ChangeEvent, useState } from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/es/styles-compiled.css'
-import { useState } from 'react';
+
+import s from './CreditCard.module.css';
 
 export const PaymentForm = () => {
   const [name, setName] = useState<string>('');
@@ -10,24 +11,20 @@ export const PaymentForm = () => {
   const [expiry, setExpiry] = useState<string>('');
   const [cvc, setCvc] = useState<string>('');
 
-  const handleInputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputFocus = (e: ChangeEvent<HTMLInputElement>) => {
     const updateValue = e.target.name;
     setFocus(updateValue);
   }
   
-  const handleInputChangeCardNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setCardNumber(value);
+  const handleInputChangeCardNumber = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.value = e.target.value.replace(/\D/g,'');
+    setCardNumber(e.target.value);
   }
 
-  const handleInputChangeExpiry = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handleInputChangeExpiry = (e: ChangeEvent<HTMLInputElement>) => {
     const month = e.target.value[0] + e.target.value[1];
     const day = e.target.value[2] + e.target.value[3];
     
-    setExpiry(value);
-
     e.target.value = e.target.value.replace(/\D/g,'');
 
     if (+month > 12) {
@@ -36,14 +33,13 @@ export const PaymentForm = () => {
     if (+day > 31) {
       e.target.value = e.target.value.replace(day,'');
     }
+
+    setExpiry(e.target.value);
   }
 
-  const handleInputChangeCVC = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    
-    setCvc(value);
-
+  const handleInputChangeCVC = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.value = e.target.value.replace(/\D/g,'');
+    setCvc(e.target.value);
   }
     return (
       <div id="PaymentForm">
@@ -62,6 +58,7 @@ export const PaymentForm = () => {
             name="number"
             placeholder="Card Number"
             onChange={handleInputChangeCardNumber}
+            value={cardNumber}
             onFocus={handleInputFocus}
           />
 
@@ -71,6 +68,7 @@ export const PaymentForm = () => {
             name="expiry"
             placeholder="Expiry"
             maxLength={4}
+            value={expiry}
             onChange={handleInputChangeExpiry}
             onFocus={handleInputFocus}
           />
@@ -81,6 +79,7 @@ export const PaymentForm = () => {
             name="cvc"
             placeholder="cvc"
             maxLength={3}
+            value={cvc}
             onChange={handleInputChangeCVC}
             onFocus={handleInputFocus}
           />

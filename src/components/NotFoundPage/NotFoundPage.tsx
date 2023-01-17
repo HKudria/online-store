@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom';
+
 import image from '../../assets/image/404-page.jpeg'
+
 import s from './NotFoundPage.module.css';
 
 export const NotFoundPage = () => {

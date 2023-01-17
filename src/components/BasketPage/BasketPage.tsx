@@ -1,17 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {getBasketState, initBasket} from '../../redux/basket/basketSlice';
+import basket2 from '../../assets/image/basket2.png';
 
 import {FullCard} from '../MainPage/Products/ProductCard/FullCard/FullCard';
 import {serializeQuery, useQuery} from '../Helper/QueryParser';
 
 import {PromoBlock} from './PromoBlock/PromoBlock';
 import s from './BasketPage.module.css';
-import basket2 from '../../assets/image/basket2.png';
-
 interface IBasketProps {
     itemsPerPage: number
 }
@@ -69,7 +68,7 @@ export const BasketPage = ({itemsPerPage}: IBasketProps) => {
         }
     }, [itemsPage, pageNumber, basket]);
 
-    const changePage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const changePage = (event: ChangeEvent<HTMLInputElement>) => {
         setItemsPage(isNaN(parseInt(event.currentTarget.value)) ? 1 : parseInt(event.currentTarget.value))
         if (parseInt(event.currentTarget.value) >= basket.products.length) {
             handlePageClick({selected: 0})

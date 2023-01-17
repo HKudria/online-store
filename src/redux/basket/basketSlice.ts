@@ -1,7 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {IProduct} from '../products/ProductInterface';
-
 import {RootState} from '../store';
 
 import {BasketState, IDiscount, IRemoveAction} from './BasketInterface';

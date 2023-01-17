@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent, FC } from 'react';
 
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -15,10 +15,10 @@ import iPhone from '../../../../../assets/image/iphone.png';
 interface IProductCardInterface {
     product: IProduct;
     isAdded: boolean;
-    callback: (e: React.MouseEvent) => void;
+    callback: (e: MouseEvent) => void;
 }
 
-export const SmallCard: React.FC<IProductCardInterface> = ({product, isAdded, callback}: IProductCardInterface) => {
+export const SmallCard: FC<IProductCardInterface> = ({product, isAdded, callback}: IProductCardInterface) => {
     return (
         <>
             <Card sx={{ display: 'flex', height: 150, width: 400 }}>

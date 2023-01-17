@@ -3,9 +3,11 @@ import {useState, useEffect} from 'react';
 import {addDiscount, removeDiscount} from '../../../redux/basket/basketSlice';
 import {BasketState, IDiscount} from '../../../redux/basket/BasketInterface';
 import {useAppDispatch} from '../../../redux/hooks';
+
 import {Button} from '../../MainPage/Filters/Button/Button';
 import { Form } from '../../FormForPurchase/Form';
 import { useQuery } from '../../Helper/QueryParser';
+
 import s from './PromoBlock.module.css';
 
 
@@ -38,24 +40,6 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
         setDisInput('')
     }
 
-    const renderPrice = () => {
-        if (basket.discount.length !== 0) {
-            return (
-                <div className={s.totalPrice}>
-                    Price: 
-                    <s>{basket.totalAmount}</s> <b className={s.price}>{basket.discountAmount}</b>
-                </div>
-            )
-        } else {
-            return (
-                <div className={s.totalPrice}>
-                    Price:  
-                    <span className={s.price}> {basket.totalAmount}</span><span className={s.price}>€</span>
-                </div>
-            )
-        }
-    }
-
     useEffect(() => {
         if (parameter === 'modal') {
             setShow(true)
@@ -75,8 +59,15 @@ export const PromoBlock = ({basket}: IPromoBlockProps) => {
                     }, 0)}
                     </span>
                 </div>
-                
-            {renderPrice()}
+
+               <div className={s.totalPrice}>
+                    Price:
+                   {basket.discount.length !== 0 ?
+                       <><s>{basket.totalAmount}</s> <b className={s.price}>{basket.discountAmount}</b></> :
+                       <><span className={s.price}> {basket.totalAmount}</span><span className={s.price}>€</span></> }
+              </div>
+
+
             <div className={s.discounts}>
                 Discounts:
                 <br></br>
